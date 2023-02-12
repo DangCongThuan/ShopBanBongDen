@@ -56,4 +56,106 @@ public class AbstractDao<T> {
             }
         }
     }
+
+    public Long insert(String sql, Object... parameters) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Long result = null;
+        try {
+            connection = GPDataSource.getConnection();
+            connection.setAutoCommit(false);
+            preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+
+            setParameter(preparedStatement, parameters);
+            preparedStatement.executeUpdate();
+            resultSet = preparedStatement.getGeneratedKeys();
+            while (resultSet.next()) {
+                result = resultSet.getLong(1);
+            }
+            connection.commit();
+            return result;
+        } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+        } finally {
+            try {
+                GPDataSource.releaseConnection(resultSet, preparedStatement, connection);
+            } catch (SQLException e2) {
+                e2.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public void update(String sql, Object... parameters) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = GPDataSource.getConnection();
+            connection.setAutoCommit(false);
+            preparedStatement = connection.prepareStatement(sql);
+            setParameter(preparedStatement, parameters);
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+        } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        } finally {
+            try {
+                GPDataSource.releaseConnection(preparedStatement, connection);
+            } catch (SQLException e2) {
+                e2.printStackTrace();
+            }
+        }
+
+    }
+    public int count(String sql, Object... parameters) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        int result = 0;
+        try {
+            connection = GPDataSource.getConnection();
+            connection.setAutoCommit(false);
+            preparedStatement = connection.prepareStatement(sql);
+
+            setParameter(preparedStatement, parameters);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
+            connection.commit();
+            return result;
+        } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+        } finally {
+            try {
+                GPDataSource.releaseConnection(resultSet, preparedStatement, connection);
+            } catch (SQLException e2) {
+                e2.printStackTrace();
+            }
+        }
+        return result;
+    }
 }

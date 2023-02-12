@@ -12,7 +12,7 @@ public class ProductMapper implements IRowMapper<ProductModel> {
     public ProductModel mapRow(ResultSet rs) {
         try {
             ProductModel productModel = new ProductModel();
-            productModel.setId(rs.getString("product_id"));
+            productModel.setId(rs.getLong("product_id"));
             productModel.setName(rs.getString("product_name"));
             productModel.setPrice(rs.getLong("price"));
             productModel.setThumbnail1(rs.getString("thumbnail_1"));

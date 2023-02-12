@@ -43,4 +43,40 @@ public class CategoryDaoImpl extends AbstractDao<CategoryModel> implements ICate
         StringBuilder sql = new StringBuilder("Select * from category");
         return query(sql.toString(), new CategoryMapper());
     }
+    @Override
+    public boolean checkExits(String name) {
+        String sql = "Select * From category Where category_name = ?";
+        List<CategoryModel> categoryModelList = query(sql, new CategoryMapper(), name);
+        return categoryModelList.isEmpty() ? false : true;
+    }
+
+    @Override
+    public Long add(CategoryModel newCategory) {
+        String sql = "Insert Into category(category_name, description, status, created_date, created_by) Values( ?, ?, ?, ?, ?)";
+        return insert(sql, newCategory.getName(), newCategory.getDescription(), newCategory.getStatus(), newCategory.getCreatedDate(),
+                newCategory.getCreatedBy());
+    }
+
+    @Override
+    public CategoryModel findById(Long categoryId) {
+        String sql = "Select * From category Where category_id = ?";
+        List<CategoryModel> categoryModelList = query(sql, new CategoryMapper(), categoryId);
+        return categoryModelList.isEmpty() ? null : categoryModelList.get(0);
+
+    }
+
+    @Override
+    public void update(CategoryModel newCategory) {
+        StringBuilder sql = new StringBuilder("Update category Set category_name = ?, description = ?,");
+        sql.append(" status = ?, created_date = ?, created_by = ?, modified_date = ?, modified_by = ? Where category_id = ?");
+        update(sql.toString(), newCategory.getName(), newCategory.getDescription(), newCategory.getStatus(),
+                newCategory.getCreatedDate(), newCategory.getCreatedBy(), newCategory.getCreatedDate(),
+                newCategory.getModifiedBy(), newCategory.getId());
+    }
+
+    @Override
+    public void delete(Long id) {
+        String sql = "DELETE FROM category WHERE category_id = ?";
+        update(sql, id);
+    }
 }

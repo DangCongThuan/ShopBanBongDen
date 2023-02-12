@@ -7,10 +7,10 @@ import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 public class ConnectionPoolImpl implements GPConnectionPool{
-
-    private static ResourceBundle rb = ResourceBundle.getBundle("db");
-    private static final LinkedList<Connection> availableConnections = new LinkedList<>();
+    
     private static ConnectionPoolImpl instance;
+
+    private static final LinkedList<Connection> availableConnections = new LinkedList<>();
     private String url;
     private String host;
     private String port;
@@ -29,9 +29,10 @@ public class ConnectionPoolImpl implements GPConnectionPool{
         this.maxConnection = maxConnection;
         initializeConnectionPool();
     }
-
+    
     public static ConnectionPoolImpl getInstance() {
         if (instance == null) {
+            ResourceBundle rb = ResourceBundle.getBundle("db");
             String url = rb.getString("url");
             String host = rb.getString("host");
             String port = rb.getString("port");
@@ -44,12 +45,15 @@ public class ConnectionPoolImpl implements GPConnectionPool{
         return instance;
     }
 
+
     private synchronized void initializeConnectionPool() {
         try {
             while (!checkIfConnectionPoolIsFull()) {
-                String connectionURL = url + host + ":" + port + "/" + databaseName;
+                String connectionURL = url + host + ":" + port + "/" + databaseName +"";
+                DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
                 Connection newConnection = DriverManager.getConnection(connectionURL, userName, pass);
                 availableConnections.add(newConnection);
+                System.out.println(availableConnections.size());
             }
             notifyAll();
         } catch (SQLException e) {
@@ -91,5 +95,13 @@ public class ConnectionPoolImpl implements GPConnectionPool{
             e.printStackTrace();
         }
         return false;
+    }
+    public synchronized String toString() {
+        StringBuilder sb = new StringBuilder()
+                .append("Max=" + maxConnection)
+                .append(" | Available=" + availableConnections.size())
+                .append(" | Busy=" + (maxConnection - availableConnections.size()))
+                ;
+        return sb.toString();
     }
 }

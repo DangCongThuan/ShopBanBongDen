@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductModel extends AbstractModel{
-    private String id;
+    private Long id;
     private String name;
     private String thumbnail1;
     private String thumbnail2;
@@ -13,8 +13,9 @@ public class ProductModel extends AbstractModel{
     private Long sellPrice;
     private Long categoryId;
     private CategoryModel categoryModel;
-    private List<ImgProductModel> inforImages = new ArrayList<>();
 
+//    private List<ImgProductModel> inforImages = new ArrayList<>();
+    private List<String> inforImages = new ArrayList<>();
     private Integer stars;
     private Integer reviewCount;
 
@@ -24,11 +25,11 @@ public class ProductModel extends AbstractModel{
 
 //    ----------------------------------------------
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -96,13 +97,7 @@ public class ProductModel extends AbstractModel{
         this.categoryModel = categoryModel;
     }
 
-    public List<ImgProductModel> getInforImages() {
-        return inforImages;
-    }
 
-    public void setInforImages(List<ImgProductModel> inforImages) {
-        this.inforImages = inforImages;
-    }
 
     public Integer getStars() {
         return stars;
@@ -118,5 +113,13 @@ public class ProductModel extends AbstractModel{
 
     public void setReviewCount(Integer reviewCount) {
         this.reviewCount = reviewCount;
+    }
+
+    public void setInforImages(List<String> inforImages) {
+        this.inforImages = inforImages;
+    }
+
+    public List<String> getInforImages() {
+        return inforImages;
     }
 }

@@ -10,6 +10,8 @@ public class AbstractModel {
     private Timestamp modifiedDate;
     private Integer status;
 
+    private String message;
+
     public String getCreatedBy() {
         return createdBy;
     }
@@ -48,5 +50,13 @@ public class AbstractModel {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
