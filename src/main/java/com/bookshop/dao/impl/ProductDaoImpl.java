@@ -90,4 +90,5 @@ public class ProductDaoImpl extends AbstractDao<ProductModel> implements IProduc
         String sql = "Insert Into images_product(image_name, product_id) Values( ?, ?)";
         return insert(sql, imgName, productId);
     }
+
 }

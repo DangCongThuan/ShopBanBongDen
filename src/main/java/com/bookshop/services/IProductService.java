@@ -9,8 +9,10 @@ public interface IProductService {
     List<ProductModel> findAll(Pageble pageble);
     ProductModel findById(Long id);
     void delete(Long id);
-    ProductModel add(ProductModel newProduct);
+    String add(ProductModel newProduct);
+
+    void findImgsProduct(ProductModel productModel);
 
     ProductModel update(ProductModel productUpdated);
-    void addInforImgs(List<String> listImgs, ProductModel productModel);
+//    void addInforImgs(List<String> listImgs, ProductModel productModel);
 }

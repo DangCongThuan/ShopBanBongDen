@@ -2,6 +2,7 @@ package com.bookshop.dao.impl;
 
 import com.bookshop.db.GPDataSource;
 import com.bookshop.mapper.IRowMapper;
+import org.apache.commons.lang3.StringUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 
 public class AbstractDao<T> {
     private static void setParameter(PreparedStatement statement, Object... parameters) {
+        int size = parameters.length;
         try {
             for (int i = 0; i < parameters.length; i++) {
                 int index = i + 1;
@@ -25,6 +27,8 @@ public class AbstractDao<T> {
                     statement.setDouble(index, (Double) parameter);
                 } else if (parameter instanceof Date) {
                     statement.setDate(index, (Date) parameter);
+                } else {
+                    statement.setString(index, "");
                 }
             }
         } catch (SQLException e) {
@@ -57,6 +61,12 @@ public class AbstractDao<T> {
         }
     }
 
+    public List<String> query(String sql, Object...parameters) {
+        List<String> listResult = new ArrayList<>();
+        return listResult;
+    }
+
+
     public Long insert(String sql, Object... parameters) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -65,6 +75,7 @@ public class AbstractDao<T> {
         try {
             connection = GPDataSource.getConnection();
             connection.setAutoCommit(false);
+//            connection.setAutoCommit(true);
             preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
             setParameter(preparedStatement, parameters);
@@ -75,7 +86,9 @@ public class AbstractDao<T> {
             }
             connection.commit();
             return result;
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
             if (connection != null) {
                 try {
                     connection.rollback();
@@ -157,5 +170,11 @@ public class AbstractDao<T> {
             }
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        String a = "";
+        Object result = a;
+        System.out.println(result);
     }
 }

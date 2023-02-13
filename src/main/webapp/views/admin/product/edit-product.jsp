@@ -44,8 +44,8 @@
     <c:if test="${not empty message}">
         <script>
 
-            iziToast.success({
-                title: 'Hello, world!',
+            iziToast.${status}({
+                title: 'Thông báo!',
                 message: '${message}',
                 position: 'topRight'
             });
@@ -71,7 +71,8 @@
                                     <c:if test="${empty ProductModel.id}">
                                         <c:url value="/admin/product/add" var="urlFromProduct"/>
                                     </c:if>
-                                    <form id="productForm" action="${urlFromProduct}" enctype="multipart/form-data" method="post">
+                                    <form id="productForm" action="${urlFromProduct}" enctype="multipart/form-data"
+                                          method="post">
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label>Tên</label>
@@ -105,7 +106,8 @@
                                             <div class="form-group col-md-6">
                                                 <label>Danh mục</label>
                                                 <div>
-                                                    <select id="categoryId" name="categoryId" class="form-control selectric">
+                                                    <select id="categoryId" name="categoryId"
+                                                            class="form-control selectric">
                                                         <c:forEach items="${cateList}" var="item">
                                                             <option value="${item.id}" ${productModel.categoryId == item.id ? "selected" : ""}>${item.name}</option>
                                                         </c:forEach>
@@ -136,9 +138,12 @@
                                                            onchange="previewFile(this, 1);">
                                                 </p>
                                                 <label class="card d-block w-100 max-300" for="thumbnail-1">
-                                                    <img data-crop-image="285"
-                                                         class="d-block w-100 fallback border-dark" id="previewImg-1"
-                                                         src="" alt="Nhấn vào để thêm ảnh">
+                                                    <img data-crop-image="285" style="cursor: pointer"
+                                                         class="d-block w-100" id="previewImg-1"
+                                                         data-toggle="tooltip"
+                                                         data-placement="top" title="Hình ảnh mô tả 1. Nhấn vào để thay đổi"
+                                                         src="<c:url value="/get/image?fileName=${productModel.thumbnail1}"/>"
+                                                         alt="Nhấn vào để thêm ảnh">
                                                 </label>
                                             </div>
                                             <div class="form-group col-md-6">
@@ -148,10 +153,11 @@
                                                            onchange="previewFile(this, 2);">
                                                 </p>
                                                 <label class="card d-block w-100 max-300" for="photo-2">
-                                                    <img data-crop-image="285"
-                                                         class="d-block w-100 fallback border-dark" id="previewImg-2"
-                                                         src="" alt="Nhấn vào để thêm ảnh">
-
+                                                    <img data-crop-image="285" style="cursor: pointer"
+                                                         class="d-block w-100" id="previewImg-2" data-toggle="tooltip"
+                                                         data-placement="top" title="Hình ảnh mô tả 2. Nhấn vào để thay đổi"
+                                                         src="<c:url value="/get/image?fileName=${productModel.thumbnail2}"/>"
+                                                         alt="Nhấn vào để thêm ảnh">
                                                 </label>
                                             </div>
                                         </div>
@@ -211,12 +217,16 @@
             reader.readAsDataURL(file);
         }
     }
-<%--        <c:set var="i" value="0"></c:set>--%>
+
+    <%--        <c:set var="i" value="0"></c:set>--%>
 
     let preloaded = [];
-   <c:forEach begin="1" end="3" var="i">
-    <c:url var="l" value="/get/image?fileName=49fa6a723e5bb135b206ac7269c036a0.png"></c:url>
-    preloaded[${i-1}] = {id: '${i}', src: '${l}'};
+    <c:set value="1" var="i"></c:set>
+    <c:forEach begin="1" end="${productModel.inforImages.size()}" var="i">
+    preloaded[${i-1}] = {
+        id: '${i}',
+        src: '<c:url value="/get/image?fileName=${productModel.inforImages.get(i-1)}"></c:url>'
+    };
     </c:forEach>
     $(function () {
         $('#image-infors').imageUploader({

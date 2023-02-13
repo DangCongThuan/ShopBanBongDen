@@ -15,21 +15,21 @@ public class ProductMapper implements IRowMapper<ProductModel> {
             productModel.setId(rs.getLong("product_id"));
             productModel.setName(rs.getString("product_name"));
             productModel.setPrice(rs.getLong("price"));
-            productModel.setThumbnail1(rs.getString("thumbnail_1"));
-            productModel.setThumbnail2(rs.getString("thumbnail_2"));
             productModel.setCategoryId(rs.getLong("category_id"));
             productModel.setCreatedDate(rs.getTimestamp("created_date"));
             productModel.setCreatedBy(rs.getString("created_by"));
             productModel.setStatus(rs.getInt("status"));
             productModel.setDescription(rs.getString("description"));
             try {
+                productModel.setThumbnail1(rs.getString("thumbnail_1"));
+                productModel.setThumbnail2(rs.getString("thumbnail_2"));
                 productModel.setModifiedBy(rs.getString("modified_by"));
                 productModel.setModifiedDate(rs.getTimestamp("modified_date"));
                 CategoryModel categoryModel = new CategoryModel();
                 categoryModel.setName(rs.getString("category_name"));
                 productModel.setCategoryModel(categoryModel);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println(this.getClass() + e.getMessage());
             }
             return productModel;
         } catch (SQLException e) {

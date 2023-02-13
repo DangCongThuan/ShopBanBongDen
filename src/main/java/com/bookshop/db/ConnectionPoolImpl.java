@@ -94,6 +94,7 @@ public class ConnectionPoolImpl implements GPConnectionPool{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Database status after reslease: " + this);
         return false;
     }
     public synchronized String toString() {
