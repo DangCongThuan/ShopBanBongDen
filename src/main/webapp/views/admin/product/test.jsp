@@ -215,13 +215,11 @@
 <!-- JS Libraies -->
 <script src="<c:url value="/assets/admin/bundles/summernote/summernote-bs4.js"/>"></script>
 <script src="<c:url value="/assets/admin/bundles/jquery-selectric/jquery.selectric.min.js"/>"></script>
-<%--<script src="<c:url value="/assets/admin/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js"/>"></script>--%>
 <!-- Template JS File -->
 <script src="<c:url value="/assets/admin/js/scripts.js"/>"></script>
 <!-- Custom JS File -->
 <script src="<c:url value="/assets/admin/js/custom.js"/>"></script>
 <script src="<c:url value="/assets/commons/uploadImage/dist/image-uploader.min.js"/>"></script>
-<%--<script src="<c:url value="/assets/admin/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js"/>"></script>--%>
 
 <script>
     function previewFile(input, id) {
@@ -248,10 +246,7 @@
         $("#thumbnail-2").val("");
         $("#previewImg-2").attr("src", "");
     });
-
-
-    <%--        <c:set var="i" value="0"></c:set>--%>
-
+    //-----------------------------------------------------
     let preloaded = [];
     <c:set value="1" var="i"></c:set>
     <c:forEach begin="1" end="${productModel.inforImages.size()}" var="i">
@@ -263,15 +258,13 @@
     $(function () {
         $('#image-infors').imageUploader({
             imagesInputName: 'infors',
-            // preloadedInputName: 'preloaded-thumbnail',
-            // maxFiles: none,
             preloaded: preloaded
         });
     });
 </script>
-<c:url var="url" value="/admin/product/add"/>
+<c:url var="url" value="/admin/product/add1"/>
 <script>
-    $(document).ready(function () {
+    // $(document).ready(function () {
         $("#btnSubmit").click(function (event) {
             event.preventDefault();
             var form = $('#productForm')[0];
@@ -314,7 +307,7 @@
             });
 
         });
-    });
+    // });
 </script>
 </body>
 
