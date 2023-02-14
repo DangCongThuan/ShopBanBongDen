@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(value = "/admin/product/add")
-public class AddProduct extends HttpServlet {
+@WebServlet(value = "/admin/product/add1")
+public class AddTest1 extends HttpServlet {
     private IProductService productService = ProductServiceImpl.getInstance();
     private ICategoryService categoryService = CategoryServiceImpl.getInstance();
     private ServletFileUpload uploader = null;
@@ -39,7 +39,7 @@ public class AddProduct extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         MessageUtils.getMessage(request);
         request.setAttribute("cateList", categoryService.findAll());
-        request.getRequestDispatcher("/views/admin/product/edit-product.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/admin/product/test.jsp").forward(request, response);
     }
 
     @Override
@@ -48,6 +48,7 @@ public class AddProduct extends HttpServlet {
         ProductModel newProductModel = new ProductModel();
         List<String> inforImgs = new ArrayList<>();
         String message = "";
+
         try {
             List<FileItem> items = uploader.parseRequest(request);
             for (FileItem item : items) {
@@ -88,16 +89,17 @@ public class AddProduct extends HttpServlet {
         }
         newProductModel.setInforImages(inforImgs);
         message = productService.add(newProductModel);
-        if (message.equals("add-product-success")) {
-            response.sendRedirect(request.getContextPath() + "/admin/product/add?message=add-product-success&status=success");
-
-        } else {
-            MessageUtils.setMessage(request, message, "error");
-            request.setAttribute("productModel", newProductModel);
-            request.setAttribute("cateList", categoryService.findAll());
-            request.getRequestDispatcher("/views/admin/product/edit-product.jsp").forward(request, response);
-//            response.sendRedirect(request.getHeader("referer") + "?message="+message+"&status=error");
-        }
-
+//        if (message.equals("add-product-success")) {
+//            response.sendRedirect(request.getContextPath() + "/admin/product/add1?message=add-product-success&status=success");
+//
+//        } else {
+//            MessageUtils.setMessage(request, message, "error");
+//            request.setAttribute("productModel", newProductModel);
+//            request.setAttribute("cateList", categoryService.findAll());
+//            request.getRequestDispatcher("/views/admin/product/edit-product.jsp").forward(request, response);
+////            response.sendRedirect(request.getHeader("referer") + "?message="+message+"&status=error");
+//        }
+        response.setContentType("text/plain");
+        response.getWriter().write(message);
     }
 }

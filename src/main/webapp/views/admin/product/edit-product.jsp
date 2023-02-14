@@ -36,6 +36,19 @@
     <link rel="stylesheet" href="<c:url value="/assets/admin/css/custom.css"/>">
     <link rel='shortcut icon' type='image/x-icon' href='<c:url value="/assets/admin/img/favicon.ico"/>'/>
     <script src="<c:url value="/assets/admin/bundles/ckeditor/ckeditor.js"/>"></script>
+    <style>
+        .card>a {
+            visibility: hidden;
+            /*position: relative;*/
+        }
+
+        .card:hover>a {
+            visibility: visible;
+            /*margin-top: -15px;*/
+            /*position: fixed;*/
+        }
+
+    </style>
 </head>
 
 <body>
@@ -65,13 +78,13 @@
                                     <h4>${productModel.id == null ? "Thêm sản phẩm mới" : "Chỉnh sửa sản phẩm"}</h4>
                                 </div>
                                 <div class="card-body">
-                                    <c:if test="${not empty productModel.id}">
+                                    <c:if test="${productModel.id != null}">
                                         <c:url value="/admin/product/edit" var="urlFromProduct"/>
                                     </c:if>
-                                    <c:if test="${empty ProductModel.id}">
+                                    <c:if test="${productModel.id == null}">
                                         <c:url value="/admin/product/add" var="urlFromProduct"/>
                                     </c:if>
-                                    <form id="productForm" action="${urlFromProduct}" enctype="multipart/form-data"
+                                    <form id="productForm" action="${urlFromProduct}" enctype="multipart/form-data" accept-charset="UTF-8"
                                           method="post">
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
@@ -138,12 +151,12 @@
                                                            onchange="previewFile(this, 1);">
                                                 </p>
                                                 <label class="card d-block w-100 max-300" for="thumbnail-1">
+                                                    <a href="#" id="rm-btn-1" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
                                                     <img data-crop-image="285" style="cursor: pointer"
-                                                         class="d-block w-100" id="previewImg-1"
-                                                         data-toggle="tooltip"
+                                                         class="d-block w-100" id="previewImg-1" data-toggle="tooltip"
                                                          data-placement="top" title="Hình ảnh mô tả 1. Nhấn vào để thay đổi"
                                                          src="<c:url value="/get/image?fileName=${productModel.thumbnail1}"/>"
-                                                         alt="Nhấn vào để thêm ảnh">
+                                                         >
                                                 </label>
                                             </div>
                                             <div class="form-group col-md-6">
@@ -153,11 +166,12 @@
                                                            onchange="previewFile(this, 2);">
                                                 </p>
                                                 <label class="card d-block w-100 max-300" for="photo-2">
+                                                    <a href="#" id="rm-btn-2" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
                                                     <img data-crop-image="285" style="cursor: pointer"
                                                          class="d-block w-100" id="previewImg-2" data-toggle="tooltip"
                                                          data-placement="top" title="Hình ảnh mô tả 2. Nhấn vào để thay đổi"
                                                          src="<c:url value="/get/image?fileName=${productModel.thumbnail2}"/>"
-                                                         alt="Nhấn vào để thêm ảnh">
+                                                         >
                                                 </label>
                                             </div>
                                         </div>
@@ -195,7 +209,7 @@
 <!-- JS Libraies -->
 <script src="<c:url value="/assets/admin/bundles/summernote/summernote-bs4.js"/>"></script>
 <script src="<c:url value="/assets/admin/bundles/jquery-selectric/jquery.selectric.min.js"/>"></script>
-<script src="<c:url value="/assets/admin/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js"/>"></script>
+<%--<script src="<c:url value="/assets/admin/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js"/>"></script>--%>
 <!-- Template JS File -->
 <script src="<c:url value="/assets/admin/js/scripts.js"/>"></script>
 <!-- Custom JS File -->
@@ -218,6 +232,21 @@
         }
     }
 
+    $("#rm-btn-1").click(function(e) {
+        e.preventDefault();
+        $("#thumbnail-1").val("");
+        $("#previewImg-1").attr("src", "");
+    });
+    $("#rm-btn-2").click(function(e) {
+        e.preventDefault();
+        $("#thumbnail-2").val("");
+        $("#previewImg-2").attr("src", "");
+    });
+
+
+
+
+
     <%--        <c:set var="i" value="0"></c:set>--%>
 
     let preloaded = [];
@@ -235,6 +264,12 @@
             // maxFiles: none,
             preloaded: preloaded
         });
+        $('#test1').imageUploader({
+            imagesInputName: 'test1'
+        })
+        $('#test2').imageUploader({
+            imagesInputName: 'test1'
+        })
     });
 </script>
 </body>
