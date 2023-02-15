@@ -179,3 +179,9 @@
         margin: .2rem;
     }
 }
+
+.yes {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 10px !important;
+}

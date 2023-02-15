@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="<c:url value="/assets/admin/bundles/summernote/summernote-bs4.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/admin/bundles/jquery-selectric/selectric.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/admin/bundles/izitoast/css/iziToast.min.css"/>">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <!-- Library Js Files -->
     <script src="<c:url value="/assets/admin/bundles/izitoast/js/iziToast.min.js"/>"></script>
     <link href="<c:url value="/assets/commons/uploadImage/dist/image-uploader.min.css"/>" rel="stylesheet">
@@ -36,21 +37,34 @@
     <link rel="stylesheet" href="<c:url value="/assets/admin/css/custom.css"/>">
     <link rel='shortcut icon' type='image/x-icon' href='<c:url value="/assets/admin/img/favicon.ico"/>'/>
     <script src="<c:url value="/assets/admin/bundles/ckeditor/ckeditor.js"/>"></script>
+    <style>
+        .card > a {
+            visibility: hidden;
+            /*position: relative;*/
+        }
+
+        .card:hover > a {
+            visibility: visible;
+            /*margin-top: -15px;*/
+            /*position: fixed;*/
+        }
+
+    </style>
 </head>
 
 <body>
 <div class="loader"></div>
 <div id="app">
-    <c:if test="${not empty message}">
-        <script>
+    <%--    <c:if test="${not empty message}">--%>
+    <%--        <script>--%>
 
-            iziToast.${status}({
-                title: 'Thông báo!',
-                message: '${message}',
-                position: 'topRight'
-            });
-        </script>
-    </c:if>
+    <%--            iziToast.${status}({--%>
+    <%--                title: 'Thông báo!',--%>
+    <%--                message: '${message}',--%>
+    <%--                position: 'topRight'--%>
+    <%--            });--%>
+    <%--        </script>--%>
+    <%--    </c:if>--%>
     <div class="main-wrapper main-wrapper-1">
         <jsp:include page="/pages/admin/header.jsp"/>
         <jsp:include page="/pages/admin/main-side-bar.jsp"/>
@@ -64,14 +78,15 @@
                                 <div class="card-header">
                                     <h4>${productModel.id == null ? "Thêm sản phẩm mới" : "Chỉnh sửa sản phẩm"}</h4>
                                 </div>
+                                <span id="result"></span>
                                 <div class="card-body">
-                                    <c:if test="${not empty productModel.id}">
+                                    <c:if test="${productModel.id != null}">
                                         <c:url value="/admin/product/edit" var="urlFromProduct"/>
                                     </c:if>
-                                    <c:if test="${empty ProductModel.id}">
+                                    <c:if test="${productModel.id == null}">
                                         <c:url value="/admin/product/add" var="urlFromProduct"/>
                                     </c:if>
-                                    <form id="productForm" action="${urlFromProduct}" enctype="multipart/form-data"
+                                    <form id="productForm" enctype="multipart/form-data" accept-charset="UTF-8"
                                           method="post">
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
@@ -138,12 +153,14 @@
                                                            onchange="previewFile(this, 1);">
                                                 </p>
                                                 <label class="card d-block w-100 max-300" for="thumbnail-1">
+                                                    <a href="#" id="rm-btn-1" class="btn btn-icon btn-danger"><i
+                                                            class="fas fa-times"></i></a>
                                                     <img data-crop-image="285" style="cursor: pointer"
-                                                         class="d-block w-100" id="previewImg-1"
-                                                         data-toggle="tooltip"
-                                                         data-placement="top" title="Hình ảnh mô tả 1. Nhấn vào để thay đổi"
+                                                         class="d-block w-100" id="previewImg-1" data-toggle="tooltip"
+                                                         data-placement="top"
+                                                         title="Hình ảnh mô tả 1. Nhấn vào để thay đổi"
                                                          src="<c:url value="/get/image?fileName=${productModel.thumbnail1}"/>"
-                                                         alt="Nhấn vào để thêm ảnh">
+                                                    >
                                                 </label>
                                             </div>
                                             <div class="form-group col-md-6">
@@ -153,11 +170,14 @@
                                                            onchange="previewFile(this, 2);">
                                                 </p>
                                                 <label class="card d-block w-100 max-300" for="photo-2">
+                                                    <a href="#" id="rm-btn-2" class="btn btn-icon btn-danger"><i
+                                                            class="fas fa-times"></i></a>
                                                     <img data-crop-image="285" style="cursor: pointer"
                                                          class="d-block w-100" id="previewImg-2" data-toggle="tooltip"
-                                                         data-placement="top" title="Hình ảnh mô tả 2. Nhấn vào để thay đổi"
+                                                         data-placement="top"
+                                                         title="Hình ảnh mô tả 2. Nhấn vào để thay đổi"
                                                          src="<c:url value="/get/image?fileName=${productModel.thumbnail2}"/>"
-                                                         alt="Nhấn vào để thêm ảnh">
+                                                    >
                                                 </label>
                                             </div>
                                         </div>
@@ -175,11 +195,12 @@
                                         <div class="form-group">
                                             <label></label>
                                             <div>
-                                                <button type="submit" class="btn btn-primary">
+                                                <button id="btnSubmit" class="btn btn-primary">
                                                     ${productModel.id != null ? "Chỉnh sửa" : "Thêm"}
                                                 </button>
                                             </div>
                                         </div>
+                                        <%--                                        <input type="hidden" id="id" value="${productModel.id}">--%>
                                     </form>
                                 </div>
                             </div>
@@ -195,13 +216,11 @@
 <!-- JS Libraies -->
 <script src="<c:url value="/assets/admin/bundles/summernote/summernote-bs4.js"/>"></script>
 <script src="<c:url value="/assets/admin/bundles/jquery-selectric/jquery.selectric.min.js"/>"></script>
-<script src="<c:url value="/assets/admin/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js"/>"></script>
 <!-- Template JS File -->
 <script src="<c:url value="/assets/admin/js/scripts.js"/>"></script>
 <!-- Custom JS File -->
 <script src="<c:url value="/assets/admin/js/custom.js"/>"></script>
 <script src="<c:url value="/assets/commons/uploadImage/dist/image-uploader.min.js"/>"></script>
-<%--<script src="<c:url value="/assets/admin/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js"/>"></script>--%>
 
 <script>
     function previewFile(input, id) {
@@ -218,8 +237,17 @@
         }
     }
 
-    <%--        <c:set var="i" value="0"></c:set>--%>
-
+    $("#rm-btn-1").click(function (e) {
+        e.preventDefault();
+        $("#thumbnail-1").val("");
+        $("#previewImg-1").attr("src", "");
+    });
+    $("#rm-btn-2").click(function (e) {
+        e.preventDefault();
+        $("#thumbnail-2").val("");
+        $("#previewImg-2").attr("src", "");
+    });
+    //-----------------------------------------------------
     let preloaded = [];
     <c:set value="1" var="i"></c:set>
     <c:forEach begin="1" end="${productModel.inforImages.size()}" var="i">
@@ -231,11 +259,103 @@
     $(function () {
         $('#image-infors').imageUploader({
             imagesInputName: 'infors',
-            // preloadedInputName: 'preloaded-thumbnail',
-            // maxFiles: none,
             preloaded: preloaded
         });
     });
+</script>
+<c:url var="urlAdd" value="/admin/product/add"/>
+<c:url var="urlEdit" value="/admin/product/edit"/>
+
+<script>
+    var idProduct = "${productModel.id}";
+    // $(document).ready(function () {
+    $("#btnSubmit").click(function (event) {
+        event.preventDefault();
+        var form = $('#productForm')[0];
+        var data = new FormData(form);
+        $("#btnSubmit").prop("disabled", true);
+        if (idProduct == "") {
+            addProduct(data);
+        } else {
+            updateProduct(data);
+        }
+    });
+
+    function addProduct(data) {
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "${urlAdd}",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data == 'add-product-success') {
+                    iziToast.success({
+                        title: 'Thông báo!',
+                        message: data,
+                        position: 'topRight'
+                    });
+                    $("#productForm")[0].reset();
+                    // $("#result").text(data);
+                } else {
+                    iziToast.error({
+                        title: 'Thông báo!',
+                        message: data,
+                        position: 'topRight'
+                    });
+                }
+                $("#btnSubmit").prop("disabled", false);
+            },
+            error: function (e) {
+
+                $("#result").text(e.responseText);
+                console.log("ERROR : ", e);
+                $("#btnSubmit").prop("disabled", false);
+
+            }
+        });
+    }
+
+    function updateProduct(data) {
+        $.ajax({
+            type: "PUT",
+            enctype: 'multipart/form-data',
+            url: "${urlEdit}",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data == 'add-product-success') {
+                    iziToast.success({
+                        title: 'Thông báo!',
+                        message: data,
+                        position: 'topRight'
+                    });
+                    $("#productForm")[0].reset();
+                    // $("#result").text(data);
+                } else {
+                    iziToast.error({
+                        title: 'Thông báo!',
+                        message: data,
+                        position: 'topRight'
+                    });
+                }
+                $("#btnSubmit").prop("disabled", false);
+            },
+            error: function (data) {
+                iziToast.error({
+                    title: 'Thông báo!',
+                    message: data,
+                    position: 'topRight'
+                });
+                $("#btnSubmit").prop("disabled", false);
+
+            }
+        });
+    }
+
+    // });
 </script>
 </body>
 

@@ -5,6 +5,7 @@ import com.bookshop.services.ICategoryService;
 import com.bookshop.services.IProductService;
 import com.bookshop.services.impl.CategoryServiceImpl;
 import com.bookshop.services.impl.ProductServiceImpl;
+import com.bookshop.utils.FormUtils;
 import com.bookshop.utils.MessageUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -20,11 +21,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(value = "/admin/product/add")
+@WebServlet(urlPatterns = {"/admin/product/add", "/admin/product/edit", "/admin/product/delete"})
 public class AddProduct extends HttpServlet {
     private IProductService productService = ProductServiceImpl.getInstance();
     private ICategoryService categoryService = CategoryServiceImpl.getInstance();
     private ServletFileUpload uploader = null;
+    private String path;
 
     @Override
     public void init() throws ServletException {
@@ -32,11 +34,17 @@ public class AddProduct extends HttpServlet {
         File filesDir = (File) getServletContext().getAttribute("FILES_DIR_FILE");
         fileFactory.setRepository(filesDir);
         this.uploader = new ServletFileUpload(fileFactory);
+        this.path = (String) getServletContext().getAttribute("FILES_DIR");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        MessageUtils.getMessage(request);
+        ProductModel productModel = FormUtils.toModel(ProductModel.class, request);
+        if (productModel.getId() != null) {
+            productModel = productService.findById(productModel.getId());
+            productService.findImgsProduct(productModel);
+            request.setAttribute("productModel", productModel);
+        }
         request.setAttribute("cateList", categoryService.findAll());
         request.getRequestDispatcher("/views/admin/product/edit-product.jsp").forward(request, response);
     }
@@ -44,58 +52,17 @@ public class AddProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProductModel newProductModel = new ProductModel();
-        List<String> inforImgs = new ArrayList<>();
         String message = "";
         try {
             List<FileItem> items = uploader.parseRequest(request);
-            for (FileItem item : items) {
-                if (item.isFormField()) {
-                    if (item.getFieldName().equals("name")) {
-                        newProductModel.setName(item.getString());
-                    } else if (item.getFieldName().equals("price")) {
-                        newProductModel.setPrice(Long.parseLong(item.getString()));
-                    } else if (item.getFieldName().equals("categoryId")) {
-                        newProductModel.setCategoryId(Long.parseLong(item.getString()));
-                    } else if (item.getFieldName().equals("status")) {
-                        newProductModel.setStatus(Integer.parseInt(item.getString()));
-                    } else if (item.getFieldName().equals("description")) {
-                        newProductModel.setDescription(item.getString());
-                    }
-                } else {
-                    if (StringUtils.isBlank(item.getName())) {
-                        item.delete();
-                        continue;
-                    } else if (item.getFieldName().equals("thumbnail-1")) {
-                        newProductModel.setThumbnail1(item.getName());
-                    } else if (item.getFieldName().equals("thumbnail-2")) {
-                        newProductModel.setThumbnail2(item.getName());
-                    } else if (item.getFieldName().equals("infors[]")) {
-                        inforImgs.add(item.getName());
-                    }
-                    File file = new File(request.getServletContext().getAttribute("FILES_DIR") + File.separator + item.getName());
-                    System.out.println(file.getAbsolutePath());
-                    if (!file.exists()) {
-                        item.write(file);
-                    }
-                }
-            }
+            FormUtils.toProductModel(items, newProductModel, path);
         } catch (FileUploadException e) {
             message = "Thêm hình ảnh không thành công";
         } catch (Exception e) {
             message = "add-product-fail";
         }
-        newProductModel.setInforImages(inforImgs);
         message = productService.add(newProductModel);
-        if (message.equals("add-product-success")) {
-            response.sendRedirect(request.getContextPath() + "/admin/product/add?message=add-product-success&status=success");
-
-        } else {
-            MessageUtils.setMessage(request, message, "error");
-            request.setAttribute("productModel", newProductModel);
-            request.setAttribute("cateList", categoryService.findAll());
-            request.getRequestDispatcher("/views/admin/product/edit-product.jsp").forward(request, response);
-//            response.sendRedirect(request.getHeader("referer") + "?message="+message+"&status=error");
-        }
-
+        response.setContentType("text/plain");
+        response.getWriter().write(message);
     }
 }

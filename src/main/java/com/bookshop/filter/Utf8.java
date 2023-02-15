@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebFilter(filterName = "utf8", value = "/*")
+@WebFilter(filterName = "UTF-8")
 public class Utf8 implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
@@ -14,8 +14,8 @@ public class Utf8 implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        request.setCharacterEncoding("utf8");
-        response.setCharacterEncoding("utf8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         chain.doFilter(request, response);
     }
 }
