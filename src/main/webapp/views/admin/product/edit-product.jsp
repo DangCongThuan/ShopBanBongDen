@@ -22,21 +22,37 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>Otika - Admin Dashboard Template</title>
     <!-- General CSS Files -->
-    <link rel="stylesheet" href="<c:url value="/assets/admin/css/app.min.css"/>">
-    <link rel="stylesheet" href="<c:url value="/assets/admin/bundles/summernote/summernote-bs4.css"/>">
+    <%--    <link rel="stylesheet" href="<c:url value="/assets/admin/css/app.min.css"/>">--%>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css"
+          integrity="sha512-rt/SrQ4UNIaGfDyEXZtNcyWvQeOq0QLygHluFQcSjaGB04IxWhal71tKuzP6K8eYXYB6vJV4pHkXcmFGGQ1/0w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <%--    <link rel="stylesheet" href="<c:url value="/assets/admin/bundles/summernote/summernote-bs4.css"/>">--%>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.css"
+          integrity="sha512-ngQ4IGzHQ3s/Hh8kMyG4FC74wzitukRMIcTOoKT3EyzFZCILOPF0twiXOQn75eDINUfKBYmzYn2AA8DkAk8veQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="<c:url value="/assets/admin/bundles/jquery-selectric/selectric.css"/>">
-    <link rel="stylesheet" href="<c:url value="/assets/admin/bundles/izitoast/css/iziToast.min.css"/>">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<%--    <link rel="stylesheet" href="<c:url value="/assets/admin/bundles/izitoast/css/iziToast.min.css"/>">--%>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css"
+              integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!-- Library Js Files -->
+<%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>--%>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+                integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="<c:url value="/assets/admin/bundles/izitoast/js/iziToast.min.js"/>"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"
+            integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="<c:url value="/assets/commons/uploadImage/dist/image-uploader.min.css"/>" rel="stylesheet">
+    <%--    <script src="<c:url value="/assets/admin/bundles/ckeditor/ckeditor.js"/>"></script>--%>
+
     <!-- Template CSS -->
     <link rel="stylesheet" href="<c:url value="/assets/admin/css/style.css"/>">
     <link rel="stylesheet" href="<c:url value="/assets/admin/css/components.css"/>">
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="<c:url value="/assets/admin/css/custom.css"/>">
     <link rel='shortcut icon' type='image/x-icon' href='<c:url value="/assets/admin/img/favicon.ico"/>'/>
-    <script src="<c:url value="/assets/admin/bundles/ckeditor/ckeditor.js"/>"></script>
     <style>
         .card > a {
             visibility: hidden;
@@ -55,16 +71,13 @@
 <body>
 <div class="loader"></div>
 <div id="app">
-    <%--    <c:if test="${not empty message}">--%>
-    <%--        <script>--%>
-
-    <%--            iziToast.${status}({--%>
-    <%--                title: 'Thông báo!',--%>
-    <%--                message: '${message}',--%>
-    <%--                position: 'topRight'--%>
-    <%--            });--%>
-    <%--        </script>--%>
-    <%--    </c:if>--%>
+    <script>
+        iziToast.success({
+            title: 'Thông báo!',
+            message: 'Thành công',
+            position: 'topRight'
+        });
+    </script>
     <div class="main-wrapper main-wrapper-1">
         <jsp:include page="/pages/admin/header.jsp"/>
         <jsp:include page="/pages/admin/main-side-bar.jsp"/>
@@ -195,7 +208,7 @@
                                         <div class="form-group">
                                             <label></label>
                                             <div>
-                                                <button id="btnSubmit" class="btn btn-primary">
+                                                <button type="submit" href="#" id="btnSubmit" class="btn btn-primary">
                                                     ${productModel.id != null ? "Chỉnh sửa" : "Thêm"}
                                                 </button>
                                             </div>
@@ -213,8 +226,17 @@
 </div>
 <!-- General JS Scripts -->
 <script src="<c:url value="/assets/admin/js/app.min.js"/>"></script>
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"--%>
+<%--        integrity="sha512-7rusk8kGPFynZWu26OKbTeI+QPoYchtxsmPeBqkHIEXJxeun4yJ4ISYe7C6sz9wdxeE1Gk3VxsIWgCZTc+vX3g=="--%>
+<%--        crossorigin="anonymous" referrerpolicy="no-referrer"></script>--%>
 <!-- JS Libraies -->
-<script src="<c:url value="/assets/admin/bundles/summernote/summernote-bs4.js"/>"></script>
+<%--<script src="<c:url value="/assets/admin/bundles/summernote/summernote-bs4.js"/>"></script>--%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.js"
+        integrity="sha512-ZESy0bnJYbtgTNGlAD+C2hIZCt4jKGF41T5jZnIXy4oP8CQqcrBGWyxNP16z70z/5Xy6TS/nUZ026WmvOcjNIQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/lang/summernote-vi-VN.min.js"
+        integrity="sha512-ir/93ZWu1Y1LmyYrG6gIOcXCvGC/PehZtJcd6j1QoDF8EooxiYbRHKDVC/V4Kz6qPwI4HrOpvLCdpfpTedyYgw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="<c:url value="/assets/admin/bundles/jquery-selectric/jquery.selectric.min.js"/>"></script>
 <!-- Template JS File -->
 <script src="<c:url value="/assets/admin/js/scripts.js"/>"></script>
@@ -265,7 +287,6 @@
 </script>
 <c:url var="urlAdd" value="/admin/product/add"/>
 <c:url var="urlEdit" value="/admin/product/edit"/>
-
 <script>
     var idProduct = "${productModel.id}";
     // $(document).ready(function () {
@@ -311,7 +332,7 @@
 
                 $("#result").text(e.responseText);
                 console.log("ERROR : ", e);
-                $("#btnSubmit").prop("disabled", false);
+                // $("#btnSubmit").prop("disabled", false);
 
             }
         });
