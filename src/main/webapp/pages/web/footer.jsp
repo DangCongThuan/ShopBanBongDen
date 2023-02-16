@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- brand area start -->
 <div class="brand-area pt-28 pb-30">
     <div class="container">
@@ -15,7 +16,7 @@
                     <div class="title-icon">
                         <i class="fa fa-crop"></i>
                     </div>
-                    <h3>Popular Brand</h3>
+                    <h3>Các hãng nổi tiếng</h3>
                 </div>
                 <!-- section title end -->
             </div>
@@ -24,25 +25,25 @@
             <div class="col-12">
                 <div class="brand-active slick-padding slick-arrow-style">
                     <div class="brand-item text-center">
-                        <a href="#"><img src="assets/img/brand/br1.png" alt=""/></a>
+                        <a href="#"><img src="<c:url value="/assets/web/img/brand/br1.png"/>" alt=""/></a>
                     </div>
                     <div class="brand-item text-center">
-                        <a href="#"><img src="assets/img/brand/br2.png" alt=""/></a>
+                        <a href="#"><img src="<c:url value="/assets/web/img/brand/br2.png"/>" alt=""/></a>
                     </div>
                     <div class="brand-item text-center">
-                        <a href="#"><img src="assets/img/brand/br3.png" alt=""/></a>
+                        <a href="#"><img src="<c:url value="/assets/web/img/brand/br3.png"/>" alt=""/></a>
                     </div>
                     <div class="brand-item text-center">
-                        <a href="#"><img src="assets/img/brand/br4.png" alt=""/></a>
+                        <a href="#"><img src="<c:url value="/assets/web/img/brand/br4.png"/>" alt=""/></a>
                     </div>
                     <div class="brand-item text-center">
-                        <a href="#"><img src="assets/img/brand/br5.png" alt=""/></a>
+                        <a href="#"><img src="<c:url value="/assets/web/img/brand/br5.png"/>" alt=""/></a>
                     </div>
                     <div class="brand-item text-center">
-                        <a href="#"><img src="assets/img/brand/br6.png" alt=""/></a>
+                        <a href="#"><img src="<c:url value="/assets/web/img/brand/br6.png"/>" alt=""/></a>
                     </div>
                     <div class="brand-item text-center">
-                        <a href="#"><img src="assets/img/brand/br4.png" alt=""/></a>
+                        <a href="#"><img src="<c:url value="/assets/web/img/brand/br5.png"/>" alt=""/></a>
                     </div>
                 </div>
             </div>
@@ -62,8 +63,8 @@
                             <i class="fa fa-envelope"></i>
                         </div>
                         <div class="newsletter__content">
-                            <h3>sign up for newsletter</h3>
-                            <p>Duis autem vel eum iriureDuis autem vel eum</p>
+                            <h3>Đăng ký nhận tin tức</h3>
+                            <p>Chúng tôi sẽ gửi các thông tin, khuyến mãi qua email</p>
                         </div>
                     </div>
                     <div class="newsletter__box">
@@ -74,7 +75,7 @@
                                     autocomplete="off"
                                     placeholder="Email"
                             />
-                            <button id="mc-submit">subscribe!</button>
+                            <button id="mc-submit">Đăng ký!</button>
                         </form>
                     </div>
                     <!-- mailchimp-alerts Start -->
@@ -136,104 +137,66 @@
     <div class="footer-widget-area pt-40 pb-38 pb-sm-10">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     <div class="footer-widget mb-sm-30">
                         <div class="widget-title mb-10 mb-sm-6">
-                            <h4>contact us</h4>
+                            <h4>Liên hệ với chúng tôi</h4>
                         </div>
                         <div class="widget-body">
                             <ul class="location">
                                 <li><i class="fa fa-envelope"></i>support@galio.com</li>
                                 <li><i class="fa fa-phone"></i>(800) 0123 456 789</li>
                                 <li>
-                                    <i class="fa fa-map-marker"></i>Address: 1234 - Bandit
-                                    Tringi Aliquam Vitae. New York
+                                    <i class="fa fa-map-marker"></i>Địa chỉ: 1234 - Đại học Nông Lâm TP.HCM,
+                                    TP.Thủ đuc
                                 </li>
                             </ul>
                             <a class="map-btn" href="contact-us.html"
-                            >open in google map</a
+                            >Mở trong Google Map</a
                             >
                         </div>
                     </div>
                     <!-- single widget end -->
                 </div>
                 <!-- single widget column end -->
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     <div class="footer-widget mb-sm-30">
                         <div class="widget-title mb-10 mb-sm-6">
-                            <h4>my account</h4>
+                            <h4>Dịch vụ khách hàng</h4>
                         </div>
                         <div class="widget-body">
                             <ul>
-                                <li><a href="#">my account</a></li>
-                                <li><a href="#">my cart</a></li>
-                                <li><a href="#">checkout</a></li>
-                                <li><a href="#">my wishlist</a></li>
-                                <li><a href="#">login</a></li>
+                                <li><a href="#">Chính sách bảo mật thông tin</a></li>
+                                <li><a href="#">Chính sách bảo hành & đổi trả</a></li>
+                                <li><a href="#">Chính sách giao hàng</a></li>
+                                <li><a href="#">Hình thức thanh toán</a></li>
+                                <li><a href="#">Hướng dẫn mua hàng</a></li>
                             </ul>
                         </div>
                     </div>
                     <!-- single widget end -->
                 </div>
                 <!-- single widget column end -->
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     <div class="footer-widget mb-sm-30">
                         <div class="widget-title mb-10 mb-sm-6">
-                            <h4>short code</h4>
+                            <h4>Về công ty</h4>
                         </div>
                         <div class="widget-body">
                             <ul>
-                                <li><a href="#">gallery</a></li>
-                                <li><a href="#">accordion</a></li>
-                                <li><a href="#">carousel</a></li>
-                                <li><a href="#">map</a></li>
-                                <li><a href="#">tab</a></li>
+                                <li><a href="#">Giới Thiệu </a></li>
+                                <li><a href="#">Tin tức</a></li>
+                                <li><a href="#">Liên hệ</a></li>
+                                <li><a href="#">Chính sách</a></li>
+                                <li><a href="#">Hotline: 123456789</a></li>
                             </ul>
                         </div>
                     </div>
                     <!-- single widget end -->
                 </div>
-                <!-- single widget column end -->
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-widget mb-sm-30">
-                        <div class="widget-title mb-10 mb-sm-6">
-                            <h4>product tags</h4>
-                        </div>
-                        <div class="widget-body">
-                            <ul>
-                                <li><a href="#">computer</a></li>
-                                <li><a href="#">camera</a></li>
-                                <li><a href="#">smart phone</a></li>
-                                <li><a href="#">watch</a></li>
-                                <li><a href="#">tablet</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- single widget end -->
-                </div>
-                <!-- single widget column end -->
             </div>
         </div>
     </div>
     <!-- footer main end -->
-
-    <!-- footer bootom start -->
-    <div class="footer-bottom-area bg-gray pt-20 pb-20">
-        <div class="container">
-            <div class="footer-bottom-wrap">
-                <div class="copyright-text">
-                    <p>
-                        <a target="_blank" href="https://www.templateshub.net"
-                        >Templates Hub</a
-                        >
-                    </p>
-                </div>
-                <div class="payment-method-img">
-                    <img src="assets/img/payment.png" alt=""/>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- footer bootom end -->
 </footer>
 <!-- footer area end -->

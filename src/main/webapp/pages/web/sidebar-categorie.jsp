@@ -10,16 +10,16 @@
 <div class="sidebar-widget mb-30">
   <div class="sidebar-category">
     <ul>
-      <li class="title"><i class="fa fa-bars"></i> categories</li>
-      <li><a href="#">books</a><span>(10)</span></li>
-      <li><a href="#">camera</a><span>(12)</span></li>
-      <li><a href="#">computer</a><span>(08)</span></li>
-      <li><a href="#">electronic</a><span>(16)</span></li>
-      <li><a href="#">Necklaces</a><span>(11)</span></li>
-      <li><a href="#">Rugby</a><span>(20)</span></li>
-      <li><a href="#">smart phones</a><span>(15)</span></li>
-      <li><a href="#">tablet</a><span>(12)</span></li>
-      <li><a href="#">watch</a><span>(10)</span></li>
+      <li class="title"><i class="fa fa-bars"></i> Danh mục</li>
+      <li><a href="#">Bộ đèn LED Tube</a><span>(10)</span></li>
+      <li><a href="#">Bóng Đèn LED</a><span>(12)</span></li>
+      <li><a href="#">Đèn bàn</a><span>(08)</span></li>
+      <li><a href="#">Đèn đường LED</a><span>(16)</span></li>
+      <li><a href="#">Đèn LED âm trần</a><span>(11)</span></li>
+      <li><a href="#">Đèn LED bán nguyệt</a><span>(20)</span></li>
+      <li><a href="#">Đèn LED cảm biến thông minh</a><span>(15)</span></li>
+      <li><a href="#">Đèn LED công nghiệp</a><span>(12)</span></li>
+      <li><a href="#">Đèn LED dân dụng</a><span>(10)</span></li>
     </ul>
   </div>
 </div>

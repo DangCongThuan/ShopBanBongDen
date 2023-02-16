@@ -18,12 +18,10 @@
 
 <body>
 
-<!--   header begin   -->
-<jsp:include page="/pages/web/header.jsp"/>
-<!--    header end  -->
-
 <div class="wrapper">
-
+    <!--   header begin   -->
+    <jsp:include page="/pages/web/header.jsp"/>
+    <!--    header end  -->
     <!-- hero slider start -->
     <div class="container">
         <div class="row">

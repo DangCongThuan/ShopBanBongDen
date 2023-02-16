@@ -42,4 +42,3 @@
 <link href="<c:url value="/assets/web/css/plugins.css"/>" rel="stylesheet"/>
 <!-- Main Style CSS -->
 <link href="<c:url value="/assets/web/css/style.css"/>" rel="stylesheet"/>
-<link href="<c:url value="/assets/web/css/skin-default.css"/>" rel="stylesheet" id="galio-skin"/>

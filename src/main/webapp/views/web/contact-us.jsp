@@ -11,7 +11,7 @@
 <head>
   <jsp:include page="/pages/web/links.jsp"/>
   <!-- Site title -->
-  <title>Galio - Chi tiết sản phẩm</title>
+  <title>Galio - Liên hệ</title>
   <!-- Favicon -->
 </head>
 
@@ -31,8 +31,7 @@
             <nav aria-label="breadcrumb">
               <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="shop-grid-left-sidebar.html">shop</a></li>
-                <li class="breadcrumb-item active" aria-current="page">checkout</li>
+                <li class="breadcrumb-item active" aria-current="page">Liên hệ</li>
               </ul>
             </nav>
           </div>
@@ -48,27 +47,27 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="contact-message">
-            <h2>tell us your project</h2>
+            <h2>Nói cho chúng tôi điều bạn nghĩ</h2>
             <form id="contact-form" action="http://demo.hasthemes.com/galio-v6/galio/assets/php/mail.php" method="post" class="contact-form">
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                  <input name="first_name" placeholder="Name *" type="text" required>
+                  <input name="first_name" placeholder="Tên *" type="text" required>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                  <input name="phone" placeholder="Phone *" type="text" required>
+                  <input name="phone" placeholder="SDT *" type="tel" required>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                  <input name="email_address" placeholder="Email *" type="text" required>
+                  <input name="email_address" placeholder="Email *" type="email" required>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                  <input name="contact_subject" placeholder="Subject *" type="text">
+                  <input name="contact_subject" placeholder="Tiêu đề *" type="text">
                 </div>
                 <div class="col-12">
                   <div class="contact2-textarea text-center">
-                    <textarea placeholder="Message *" name="message"  class="form-control2" required=""></textarea>
+                    <textarea placeholder="Nội dung *" name="message"  class="form-control2" required=""></textarea>
                   </div>
                   <div class="contact-btn">
-                    <button class="sqr-btn" type="submit">Send Message</button>
+                    <button class="sqr-btn" type="submit">Gửi</button>
                   </div>
                 </div>
                 <div class="col-12 d-flex justify-content-center">
@@ -80,16 +79,16 @@
         </div>
         <div class="col-lg-6">
           <div class="contact-info mt-md-28 mt-sm-28">
-            <h2>contact us</h2>
-            <p>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human.</p>
+            <h2>Liên hệ với chúng tôi</h2>
+            <p>Nếu bạn có thắc măc hãy liên hệ với chúng tôi theo các cách bên dưới. Chúng tôi sẽ cố gắng gửi phản hồi sớm nhất cho bạn.</p>
             <ul>
-              <li><i class="fa fa-fax"></i> Address : No 40 Baria Sreet 133/2 NewYork City</li>
+              <li><i class="fa fa-fax"></i>Địa chỉ : Khu phố 6, phường Linh Trung, thành phố Thủ Đức , Thành phố Hồ Chí Minh , Việt Nam</li>
               <li><i class="fa fa-phone"></i> info@yourdomain.com</li>
               <li><i class="fa fa-envelope-o"></i> +88013245657</li>
             </ul>
             <div class="working-time">
-              <h3>Working hours</h3>
-              <p><span>Monday – Saturday:</span>08AM – 22PM</p>
+              <h3>Giờ làm việc</h3>
+              <p><span>Thứ 2 – Thứ 7:</span>8h – 17h</p>
             </div>
           </div>
         </div>
@@ -97,15 +96,6 @@
     </div>
   </div>
   <!-- contact area end -->
-
-  <!-- map area start -->
-  <div class="map-area-wrapper">
-    <div class="container">
-      <div id="map_content" data-lat="23.763491" data-lng="90.431167" data-zoom="8" data-maptitle="HasTech" data-mapaddress="Floor# 4, House# 5, Block# C     </br> Banasree Main Rd, Dhaka">
-      </div>
-    </div>
-  </div>
-  <!-- map area end -->
 
   <!-- footer area start -->
   <jsp:include page="/pages/web/footer.jsp"/>
