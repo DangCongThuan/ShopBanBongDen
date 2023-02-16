@@ -13,7 +13,7 @@
 <head>
     <jsp:include page="/pages/web/links.jsp"/>
     <!-- Site title -->
-    <title>Galio - Chi tiết sản phẩm</title>
+    <title>Galio - Đăng ký</title>
     <!-- Favicon -->
 </head>
 
@@ -33,8 +33,7 @@
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item"><a href="shop-grid-left-sidebar.html">shop</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">checkout</li>
+                                <li class="breadcrumb-item active" aria-current="page">Đăng ký</li>
                             </ul>
                         </nav>
                     </div>
@@ -52,38 +51,41 @@
                     <!-- Register Content Start -->
                     <div class="col-lg-6">
                         <div class="login-reg-form-wrap mt-md-34 mt-sm-34">
-                            <h2>Singup Form</h2>
+                            <h2>Đăng ký</h2>
                             <form action="#" method="post">
-                                <div class="single-input-item">
-                                    <input type="text" placeholder="Full Name" required />
-                                </div>
-                                <div class="single-input-item">
-                                    <input type="email" placeholder="Enter your Email" required />
-                                </div>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="single-input-item">
-                                            <input type="password" placeholder="Enter your Password" required />
+                                            <input type="text" placeholder="Họ" required />
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="single-input-item">
-                                            <input type="password" placeholder="Repeat your Password" required />
+                                            <input type="text" placeholder="Tên" required />
                                         </div>
                                     </div>
+                                </div>
+                                <div class="single-input-item">
+                                    <input type="email" placeholder="Email" required />
+                                </div>
+                                <div class="single-input-item">
+                                    <input type="password" placeholder="Mật khẩu" required />
+                                </div>
+                                <div class="single-input-item">
+                                    <input type="password" placeholder="Nhập lại mật khẩu" required />
                                 </div>
                                 <div class="single-input-item">
                                     <div class="login-reg-form-meta">
                                         <div class="remember-meta">
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="subnewsletter">
-                                                <label class="custom-control-label" for="subnewsletter">Subscribe Our Newsletter</label>
+                                                <label class="custom-control-label" for="subnewsletter">Đăng ký nhận thông tin</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="single-input-item">
-                                    <button class="sqr-btn">Register</button>
+                                    <button class="sqr-btn">Đăng ký</button>
                                 </div>
                             </form>
                         </div>

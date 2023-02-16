@@ -1051,11 +1051,11 @@ only screen and (min-width: 768px) and (max-width: 991px) {
     }
 }
 
-.header-middle-right .header-middle-block .header-mini-cart:hover {
+.header-middle-right .header-middle-block .header-mini-cart .mini-cart-btn:hover {
     background-color: #d8373e;
 }
 
-.header-middle-right .header-middle-block .header-mini-cart:hover .mini-cart-btn span.cart-notification {
+.header-middle-right .header-middle-block .header-mini-cart .mini-cart-btn:hover span.cart-notification {
     color: #d8373e;
     background-color: #ffffff !important;
 }
@@ -1084,11 +1084,11 @@ only screen and (min-width: 768px) and (max-width: 991px) {
     -webkit-box-pack: center;
     justify-content: center;
     -ms-flex-pack: center;
-    -webkit-flex-basis: 54px;
-    -moz-flex-basis: 54px;
-    -ms-flex-basis: 54px;
-    -ms-flex-preferred-size: 54px;
-    flex-basis: 54px;
+    -webkit-flex-basis: 33.33333%;
+    -moz-flex-basis: 33.3333%;
+    -ms-flex-basis: 33.3333%;
+    -ms-flex-preferred-size: 33.3333%;
+    flex-basis: 33.3333%;
     border-right: 2px solid #ffffff;
     line-height: 52px;
     color: #ffffff;
@@ -2650,16 +2650,16 @@ only screen and (max-width: 767px) {
 /*---------  start Hero slider-1 for home 1 -------*/
 /*-------- Hero Side Category Style --------*/
 .slider-wrapper-area {
-    -ms-flex-preferred-size: calc(100% 270px);
-    flex-basis: calc(100% 270px);
+    -ms-flex-preferred-size: calc(100% - 270px);
+    flex-basis: calc(100% - 270px);
     max-width: calc(100% - 270px);
     margin-left: auto;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .slider-wrapper-area {
-        -ms-flex-preferred-size: calc(100% 218px);
-        flex-basis: calc(100% 218px);
+        -ms-flex-preferred-size: calc(100%- 218px);
+        flex-basis: calc(100% - 218px);
         max-width: calc(100% - 218px);
     }
 }

@@ -6,7 +6,7 @@
 <head>
   <jsp:include page="/pages/web/links.jsp"/>
   <!-- Site title -->
-  <title>Galio - Chi tiết sản phẩm</title>
+  <title>Galio - Yêu thích</title>
   <!-- Favicon -->
 </head>
 
@@ -26,8 +26,7 @@
             <nav aria-label="breadcrumb">
               <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="shop-grid-left-sidebar.html">shop</a></li>
-                <li class="breadcrumb-item active" aria-current="page">checkout</li>
+                <li class="breadcrumb-item active" aria-current="page">Yêu thích</li>
               </ul>
             </nav>
           </div>
@@ -48,12 +47,12 @@
             <table class="table table-bordered">
               <thead>
               <tr>
-                <th class="pro-thumbnail">Thumbnail</th>
-                <th class="pro-title">Product</th>
-                <th class="pro-price">Price</th>
-                <th class="pro-quantity">Stock Status</th>
-                <th class="pro-subtotal">Add to Cart</th>
-                <th class="pro-remove">Remove</th>
+                <th class="pro-thumbnail">Hình</th>
+                <th class="pro-title">Tên</th>
+                <th class="pro-price">Giá</th>
+<%--                <th class="pro-quantity">Stock Status</th>--%>
+                <th class="pro-subtotal">Thêm vào giỏ hàng</th>
+                <th class="pro-remove">Xóa</th>
               </tr>
               </thead>
               <tbody>
@@ -62,36 +61,9 @@
                                                            alt="Product"/></a></td>
                 <td class="pro-title"><a href="#">element snowboard</a></td>
                 <td class="pro-price"><span>$295.00</span></td>
-                <td class="pro-quantity"><span class="text-success">In Stock</span></td>
+<%--                <td class="pro-quantity"><span class="text-success">In Stock</span></td>--%>
                 <td class="pro-subtotal"><a href="cart.html" class="sqr-btn text-white">Add to Cart</a></td>
-                <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-              </tr>
-              <tr>
-                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-img8.jpg"
-                                                           alt="Product"/></a></td>
-                <td class="pro-title"><a href="#">raygun snowboard</a></td>
-                <td class="pro-price"><span>$275.00</span></td>
-                <td class="pro-quantity"><span class="text-success">In Stock</span></td>
-                <td class="pro-subtotal"><a href="cart.html" class="sqr-btn text-white">Add to Cart</a></td>
-                <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-              </tr>
-              <tr>
-                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-img9.jpg"
-                                                           alt="Product"/></a></td>
-                <td class="pro-title"><a href="#">berzerker snoeboard</a></td>
-                <td class="pro-price"><span>$295.00</span></td>
-                <td class="pro-quantity"><span class="text-danger">Stock Out</span></td>
-                <td class="pro-subtotal"><a href="cart.html" class="sqr-btn text-white disabled">Add to Cart</a></td>
-                <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-              </tr>
-              <tr>
-                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-img10.jpg"
-                                                           alt="Product"/></a></td>
-                <td class="pro-title"><a href="#">turbo snowboard</a></td>
-                <td class="pro-price"><span>$110.00</span></td>
-                <td class="pro-quantity"><span class="text-success">In Stock</span></td>
-                <td class="pro-subtotal"><a href="cart.html" class="sqr-btn text-white">Add to Cart</a></td>
-                <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                <td class="pro-remove"><a href="#"><i class="fa-solid fa-trash"></i></a></td>
               </tr>
               </tbody>
             </table>

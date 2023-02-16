@@ -11,7 +11,7 @@
 <head>
     <jsp:include page="/pages/web/links.jsp"/>
     <!-- Site title -->
-    <title>Galio - Chi tiết sản phẩm</title>
+    <title>Galio - Đăng nhập</title>
     <!-- Favicon -->
 </head>
 
@@ -31,8 +31,7 @@
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item"><a href="shop-grid-left-sidebar.html">shop</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">checkout</li>
+                                <li class="breadcrumb-item active" aria-current="page">Đăng nhập</li>
                             </ul>
                         </nav>
                     </div>
@@ -50,7 +49,7 @@
                     <!-- Login Content Start -->
                     <div class="col-lg-6">
                         <div class="login-reg-form-wrap  pr-lg-50">
-                            <h2>Sign In</h2>
+                            <h2>Đăng nhập</h2>
                             <form action="#" method="post">
                                 <div class="single-input-item">
                                     <input type="email" placeholder="Email or Username" required />
@@ -63,14 +62,14 @@
                                         <div class="remember-meta">
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="rememberMe">
-                                                <label class="custom-control-label" for="rememberMe">Remember Me</label>
+                                                <label class="custom-control-label" for="rememberMe">Giữ tôi đăng nhập</label>
                                             </div>
                                         </div>
-                                        <a href="#" class="forget-pwd">Forget Password?</a>
+                                        <a href="#" class="forget-pwd">Quên mật khẩu?</a>
                                     </div>
                                 </div>
                                 <div class="single-input-item">
-                                    <button class="sqr-btn">Login</button>
+                                    <button class="sqr-btn">Đăng nhập</button>
                                 </div>
                             </form>
                         </div>
