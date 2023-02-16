@@ -21,8 +21,6 @@ public class ProductMapper implements IRowMapper<ProductModel> {
             productModel.setStatus(rs.getInt("status"));
             productModel.setDescription(rs.getString("description"));
             try {
-                productModel.setThumbnail1(rs.getString("thumbnail_1"));
-                productModel.setThumbnail2(rs.getString("thumbnail_2"));
                 productModel.setModifiedBy(rs.getString("modified_by"));
                 productModel.setModifiedDate(rs.getTimestamp("modified_date"));
                 CategoryModel categoryModel = new CategoryModel();

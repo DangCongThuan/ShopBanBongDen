@@ -1,6 +1,6 @@
 package com.bookshop.model;
 
-public class ImgsProductModel extends AbstractModel {
+public class ImgModel extends AbstractModel {
     private Long id;
     private String name;
 

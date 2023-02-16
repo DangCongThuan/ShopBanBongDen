@@ -8,6 +8,7 @@ public class AbstractModel {
     private Timestamp createdDate;
     private String modifiedBy;
     private Timestamp modifiedDate;
+    private Timestamp deleteAt;
     private Integer status;
 
     private String message;
@@ -58,5 +59,13 @@ public class AbstractModel {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Timestamp getDeleteAt() {
+        return deleteAt;
+    }
+
+    public void setDeleteAt(Timestamp deleteAt) {
+        this.deleteAt = deleteAt;
     }
 }

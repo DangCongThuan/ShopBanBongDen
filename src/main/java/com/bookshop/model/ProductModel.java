@@ -6,13 +6,20 @@ import java.util.List;
 public class ProductModel extends AbstractModel{
     private Long id;
     private String name;
-    private String thumbnail1;
-    private String thumbnail2;
+    private String thumbnail;
     private String description;
+    private String oldPrice;
     private Long price;
     private Long sellPrice;
     private Long categoryId;
     private CategoryModel categoryModel;
+    private String describes;
+    private String size;
+    private String wattage;
+    private String lumen;
+    private String voltage;
+    private String color;
+
 
 //    private List<ImgProductModel> inforImages = new ArrayList<>();
     private List<String> inforImages = new ArrayList<>();
@@ -41,28 +48,36 @@ public class ProductModel extends AbstractModel{
         this.name = name;
     }
 
-    public String getThumbnail1() {
-        return thumbnail1;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setThumbnail1(String thumbnail1) {
-        this.thumbnail1 = thumbnail1;
-    }
-
-    public String getThumbnail2() {
-        return thumbnail2;
-    }
-
-    public void setThumbnail2(String thumbnail2) {
-        this.thumbnail2 = thumbnail2;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public String getDescribes() {
+        return describes;
+    }
+
+    public void setDescribes(String describes) {
+        this.describes = describes;
+    }
+
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getOldPrice() {
+        return oldPrice;
+    }
+
+    public void setOldPrice(String oldPrice) {
+        this.oldPrice = oldPrice;
     }
 
     public Long getPrice() {
@@ -121,5 +136,45 @@ public class ProductModel extends AbstractModel{
 
     public List<String> getInforImages() {
         return inforImages;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getWattage() {
+        return wattage;
+    }
+
+    public void setWattage(String wattage) {
+        this.wattage = wattage;
+    }
+
+    public String getLumen() {
+        return lumen;
+    }
+
+    public void setLumen(String lumen) {
+        this.lumen = lumen;
+    }
+
+    public String getVoltage() {
+        return voltage;
+    }
+
+    public void setVoltage(String voltage) {
+        this.voltage = voltage;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

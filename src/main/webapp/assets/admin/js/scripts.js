@@ -708,3 +708,5 @@ $(function () {
   // sticky header default set to true
   $("#sticky_header_setting").prop("checked", true);
 });
+
+

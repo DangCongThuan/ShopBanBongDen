@@ -184,8 +184,8 @@
                                                     <td>black, blue, red</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>size</td>
-                                                    <td>L, M, S</td>
+                                                    <td></td>
+                                                    <td></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
