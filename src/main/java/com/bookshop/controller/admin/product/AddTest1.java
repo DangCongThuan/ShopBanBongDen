@@ -69,10 +69,8 @@ public class AddTest1 extends HttpServlet {
                         item.delete();
                         continue;
                     } else if (item.getFieldName().equals("thumbnail-1")) {
-                        newProductModel.setThumbnail1(item.getName());
-                    } else if (item.getFieldName().equals("thumbnail-2")) {
-                        newProductModel.setThumbnail2(item.getName());
-                    } else if (item.getFieldName().equals("infors[]")) {
+                        newProductModel.setThumbnail(item.getName());
+                    }  else if (item.getFieldName().equals("infors[]")) {
                         inforImgs.add(item.getName());
                     }
                     File file = new File(request.getServletContext().getAttribute("FILES_DIR") + File.separator + item.getName());

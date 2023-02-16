@@ -4,7 +4,7 @@ import com.bookshop.dao.IProductDao;
 import com.bookshop.dao.ImgsProductDao;
 import com.bookshop.dao.impl.ImgsProductDaoImpl;
 import com.bookshop.dao.impl.ProductDaoImpl;
-import com.bookshop.model.ImgsProductModel;
+import com.bookshop.model.ImgModel;
 import com.bookshop.model.ProductModel;
 import com.bookshop.paging.Pageble;
 import com.bookshop.services.IProductService;
@@ -44,10 +44,10 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public void findImgsProduct(ProductModel productModel) {
-        List<ImgsProductModel> list = imgsProductDao.findByProductId(productModel.getId());
-        for (ImgsProductModel item : list) {
-            productModel.getInforImages().add(item.getName());
-        }
+//        List<ImgModel> list = imgsProductDao.findByProductId(productModel.getId());
+//        for (ImgModel item : list) {
+//            productModel.getInforImages().add(item.getName());
+//        }
     }
 
     @Override
@@ -65,8 +65,11 @@ public class ProductServiceImpl implements IProductService {
             Long productId = productDao.add(newProduct);
 //          nếu update thành công thì trả về product mới có giá trị không có giá trị và set message success
             if (productId != null) {
+                imgsProductDao.addThumbnail(findImgId(newProduct.getThumbnail(), newProduct), productId);
+                newProduct.setId(productId);
+                productDao.addProductDetail(newProduct);
                 for (String item : newProduct.getInforImages()) {
-                    if (imgsProductDao.add(item, productId) == null) {
+                    if (imgsProductDao.addDetailImg(findImgId(item, newProduct), productId) == null) {
                         return "add-img-product-fail";
                     }
                 }
@@ -75,6 +78,15 @@ public class ProductServiceImpl implements IProductService {
         }
         return "add-product-fail";
     }
+
+    Long findImgId(String name, ProductModel productModel) {
+        if (!imgsProductDao.checkExitImg(name)) {
+            return imgsProductDao.addImg(name, productModel);
+        } else {
+            return imgsProductDao.findImgIdByName(name);
+        }
+    }
+
 
     @Override
     public ProductModel update(ProductModel productUpdated) {

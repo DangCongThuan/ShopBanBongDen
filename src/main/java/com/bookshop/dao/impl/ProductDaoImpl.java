@@ -6,6 +6,7 @@ import com.bookshop.model.ProductModel;
 import com.bookshop.paging.Pageble;
 import org.apache.commons.lang3.StringUtils;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class ProductDaoImpl extends AbstractDao<ProductModel> implements IProductDao {
@@ -40,26 +41,31 @@ public class ProductDaoImpl extends AbstractDao<ProductModel> implements IProduc
 
     @Override
     public Long add(ProductModel newProduct) {
-        String sql = "Insert Into product(product_name, price, description, category_id, thumbnail_1, thumbnail_2," +
-                " status, created_date, created_by) Values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "Insert Into product(product_name, price, description, category_id, thumbnail," +
+                " status, created_date, created_by) Values(?, ?, ?, ?, ?, ?, ?, ?)";
         return insert(sql, newProduct.getName(), newProduct.getPrice(), newProduct.getDescription(), newProduct.getCategoryId(),
-                newProduct.getThumbnail1(), newProduct.getThumbnail2(), newProduct.getStatus(),
+                newProduct.getThumbnail(), newProduct.getStatus(),
                 newProduct.getCreatedDate(), newProduct.getCreatedBy());
     }
 
     @Override
     public void update(ProductModel productUpdated) {
-        StringBuilder sql = new StringBuilder("UPDATE product SET product_name = ?, price = ?, thumbnail_1 = ?, thumbnail_2 = ?");
+        StringBuilder sql = new StringBuilder("UPDATE product SET product_name = ?, price = ?, thumbnail = ?,");
         sql.append(" category_id = ?, status = ?, created_date = ?, created_by = ?,");
         sql.append(" modified_date = ?, modified_by = ?, description = ? Where product_id = ?");
-        update(sql.toString(), productUpdated.getName(), productUpdated.getPrice(), productUpdated.getThumbnail1(), productUpdated.getThumbnail2(),
+        update(sql.toString(), productUpdated.getName(), productUpdated.getPrice(), productUpdated.getThumbnail(),
                 productUpdated.getCategoryId(), productUpdated.getStatus(), productUpdated.getCreatedDate(),
                 productUpdated.getCreatedBy(), productUpdated.getModifiedDate(), productUpdated.getModifiedBy(), productUpdated.getDescription(),
                 productUpdated.getId());
     }
-
     @Override
-    public void delete(Long id) {
+    public void softDelete(Long id) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String sql = "Update product set deleted_at = ? where product_id = ?";
+        update(sql, timestamp, id);
+    }
+    @Override
+    public void hardDelete(Long id) {
         String sql = "Delete from product Where product_id = ?";
         update(sql, id);
     }
@@ -86,9 +92,18 @@ public class ProductDaoImpl extends AbstractDao<ProductModel> implements IProduc
     }
 
     @Override
-    public Long addInforImgs(String imgName, Long productId) {
-        String sql = "Insert Into images_product(image_name, product_id) Values( ?, ?)";
-        return insert(sql, imgName, productId);
+    public Long addProductDetail(ProductModel newProduct) {
+        StringBuilder sql = new StringBuilder("Insert Into product_detail(product_id, describes, size, wattage, lumen, voltage, color)");
+        sql.append(" values(?, ?, ?, ?, ?, ?, ?)");
+        return insert(sql.toString(), newProduct.getId(), newProduct.getDescribes(), newProduct.getSize(), newProduct.getWattage(), newProduct.getLumen(),
+                newProduct.getVoltage(), newProduct.getColor());
     }
 
+    @Override
+    public void updateProductDetail(ProductModel productUpdated) {
+        StringBuilder sql = new StringBuilder("Update product_detail set describes = ?, size = ?, wattage = ?, lumen = ?, voltage = ?, color = ? ");
+        sql.append("where product_id = ?");
+        update(sql.toString(), productUpdated.getDescribes(), productUpdated.getSize(), productUpdated.getWattage(), productUpdated.getLumen(),
+        productUpdated.getVoltage(), productUpdated.getColor());
+    }
 }

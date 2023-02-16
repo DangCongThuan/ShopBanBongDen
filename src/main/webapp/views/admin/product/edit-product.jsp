@@ -36,7 +36,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
             integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="<c:url value="/assets/admin/bundles/izitoast/js/iziToast.min.js"/>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"
             integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -46,17 +45,21 @@
     <link rel="stylesheet" href="<c:url value="/assets/admin/css/components.css"/>">
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="<c:url value="/assets/admin/css/custom.css"/>">
-    <link rel='shortcut icon' type='image/x-icon' href='<c:url value="/assets/admin/img/favicon.ico"/>'/>
     <style>
-        .card > a {
-            visibility: hidden;
-            /*position: relative;*/
+        #drop-zone {
+            max-width: 450px;
+            height: 430px;
+            border: 2px dotted blue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .card:hover > a {
-            visibility: visible;
-            /*margin-top: -15px;*/
-            /*position: fixed;*/
+        #drop-zone img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            display: none;
         }
 
     </style>
@@ -88,99 +91,124 @@
                                     </c:if>
                                     <form id="productForm" enctype="multipart/form-data" accept-charset="UTF-8"
                                           method="post">
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label>Tên</label>
-                                                <div>
-                                                    <input id="name" name="name" type="text"
-                                                           value="${productModel.name}"
-                                                           class="form-control" required>
+                                        <div class="row">
+                                            <div class="col-12 col-md-4 col-lg-4">
+                                                <div class="form-group">
+                                                    <label>Hình ảnh mô tả 1</label>
+                                                    <div id="drop-zone">
+                                                        <img id="thumbnail-img" src="" alt="">
+                                                        <p id="label-thumbnail">Thả tệp hoặc nhấp để tải lên</p>
+                                                        <input type="file" id="thumbnail" name="thumbnail" required hidden>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <c:if test="${not empty productModel.id}">
-                                                <div class="form-group col-md-6">
-                                                    <label>Id</label>
+                                            <div class="col-12 col-md-4 col-lg-4">
+                                                <c:if test="${not empty productModel.id}">
+                                                    <div class="form-group">
+                                                        <label>Id</label>
+                                                        <div>
+                                                            <input disabled type="text" value="${productModel.id}"
+                                                                   class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </c:if>
+                                                <div class="form-group">
+                                                    <label>Tên</label>
                                                     <div>
-                                                        <input disabled type="text" value="${productModel.id}"
+                                                        <input id="name" name="name" type="text"
+                                                               value="${productModel.name}"
+                                                               class="form-control" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Giá cũ</label>
+                                                    <div>
+                                                        <input id="old-price" name="old-price" type="number"
+                                                               value="${productModel.oldPrice}"
                                                                class="form-control">
                                                     </div>
                                                 </div>
-                                            </c:if>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label>Giá</label>
-                                                <div>
-                                                    <input id="price" name="price" type="text"
-                                                           value="${productModel.price}"
-                                                           class="form-control" required>
+                                                <div class="form-group">
+                                                    <label>Giá bán</label>
+                                                    <div>
+                                                        <input id="price" name="price" type="number"
+                                                               value="${productModel.price}"
+                                                               class="form-control" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Danh mục</label>
+                                                    <div>
+                                                        <select id="categoryId" name="categoryId"
+                                                                class="form-control selectric">
+                                                            <c:forEach items="${cateList}" var="item">
+                                                                <option value="${item.id}" ${productModel.categoryId == item.id ? "selected" : ""}>${item.name}</option>
+                                                            </c:forEach>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Trạng thái</label>
+                                                    <div>
+                                                        <select id="status" name="status"
+                                                                class="form-control selectric">
+                                                            <option ${productModel.status == 1 ? "selected" : ""}
+                                                                    value="1">
+                                                                Hiển
+                                                                thị
+                                                            </option>
+                                                            <option ${productModel.status == 0 ? "selected" : ""}
+                                                                    value="0">
+                                                                Ẩn
+                                                            </option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label>Danh mục</label>
-                                                <div>
-                                                    <select id="categoryId" name="categoryId"
-                                                            class="form-control selectric">
-                                                        <c:forEach items="${cateList}" var="item">
-                                                            <option value="${item.id}" ${productModel.categoryId == item.id ? "selected" : ""}>${item.name}</option>
-                                                        </c:forEach>
-                                                    </select>
+                                            <div class="col-12 col-md-4 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Kích thước</label>
+                                                        <div>
+                                                            <input id="size" name="size" type="text" value="${productModel.size}"
+                                                                   class="form-control">
+                                                        </div>
+                                                    </div>
+                                                <div class="form-group">
+                                                    <label>Công suất</label>
+                                                    <div>
+                                                        <input id="wattage" name="wattage" type="text"
+                                                               value="${productModel.wattage}"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Quang Thông</label>
+                                                    <div>
+                                                        <input id="lumen" name="lumen" type="text"
+                                                               value="${productModel.lumen}"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Điện áp</label>
+                                                    <div>
+                                                        <input id="voltage" name="voltage" type="text"
+                                                               value="${productModel.voltage}"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Màu</label>
+                                                    <div>
+                                                        <input id="color" name="color" type="text"
+                                                               value="${productModel.color}"
+                                                               class="form-control">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <label>Trạng thái</label>
-                                                <div>
-                                                    <select id="status" name="status" class="form-control selectric">
-                                                        <option ${productModel.status == 1 ? "selected" : ""} value="1">
-                                                            Hiển
-                                                            thị
-                                                        </option>
-                                                        <option ${productModel.status == 0 ? "selected" : ""} value="0">
-                                                            Ẩn
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
+
                                         </div>
 
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label>Hình ảnh mô tả 1</label>
-                                                <p>
-                                                    <input hidden id="thumbnail-1" type="file" name="thumbnail-1"
-                                                           onchange="previewFile(this, 1);">
-                                                </p>
-                                                <label class="card d-block w-100 max-300" for="thumbnail-1">
-                                                    <a href="#" id="rm-btn-1" class="btn btn-icon btn-danger"><i
-                                                            class="fas fa-times"></i></a>
-                                                    <img data-crop-image="285" style="cursor: pointer"
-                                                         class="d-block w-100" id="previewImg-1" data-toggle="tooltip"
-                                                         data-placement="top"
-                                                         title="Hình ảnh mô tả 1. Nhấn vào để thay đổi"
-                                                         src="<c:url value="/get/image?fileName=${productModel.thumbnail1}"/>"
-                                                    >
-                                                </label>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>Hình ảnh mô tả 2</label>
-                                                <p>
-                                                    <input hidden type="file" name="thumbnail-2" id="photo-2"
-                                                           onchange="previewFile(this, 2);">
-                                                </p>
-                                                <label class="card d-block w-100 max-300" for="photo-2">
-                                                    <a href="#" id="rm-btn-2" class="btn btn-icon btn-danger"><i
-                                                            class="fas fa-times"></i></a>
-                                                    <img data-crop-image="285" style="cursor: pointer"
-                                                         class="d-block w-100" id="previewImg-2" data-toggle="tooltip"
-                                                         data-placement="top"
-                                                         title="Hình ảnh mô tả 2. Nhấn vào để thay đổi"
-                                                         src="<c:url value="/get/image?fileName=${productModel.thumbnail2}"/>"
-                                                    >
-                                                </label>
-                                            </div>
-                                        </div>
                                         <div class="form-group">
                                             <label>Thông tin bổ sung</label>
                                             <div id="image-infors" style="padding-top: .5rem;"></div>
@@ -226,30 +254,71 @@
 <script src="<c:url value="/assets/commons/uploadImage/dist/image-uploader.min.js"/>"></script>
 
 <script>
-    function previewFile(input, id) {
-        var file = $(input).get(0).files[0];
+    const dropZone = document.querySelector('#drop-zone');
+    const inputElement = document.querySelector('#thumbnail');
+    const img = document.querySelector('#thumbnail-img');
+    let p = document.querySelector('#label-thumbnail')
 
-        if (file) {
-            var reader = new FileReader();
-
-            reader.onload = function () {
-                $("#previewImg-" + id).attr("src", reader.result);
+    inputElement.addEventListener('change', function (e) {
+        const clickFile = this.files[0];
+        if (clickFile) {
+            img.style = "display:block;";
+            p.style = 'display: none';
+            const reader = new FileReader();
+            reader.readAsDataURL(clickFile);
+            reader.onloadend = function () {
+                const result = reader.result;
+                let src = this.result;
+                img.src = src;
+                img.alt = clickFile.name
             }
-
-            reader.readAsDataURL(file);
         }
-    }
+    })
+    dropZone.addEventListener('click', () => inputElement.click());
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    });
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        img.style = "display:block;";
+        let file = e.dataTransfer.files[0];
 
-    $("#rm-btn-1").click(function (e) {
-        e.preventDefault();
-        $("#thumbnail-1").val("");
-        $("#previewImg-1").attr("src", "");
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = function () {
+            e.preventDefault()
+            p.style = 'display: none';
+            let src = this.result;
+            img.src = src;
+            img.alt = file.name
+        }
     });
-    $("#rm-btn-2").click(function (e) {
-        e.preventDefault();
-        $("#thumbnail-2").val("");
-        $("#previewImg-2").attr("src", "");
-    });
+</script>
+<script>
+    // function previewFile(input, id) {
+    //     var file = $(input).get(0).files[0];
+    //
+    //     if (file) {
+    //         var reader = new FileReader();
+    //
+    //         reader.onload = function () {
+    //             $("#previewImg-" + id).attr("src", reader.result);
+    //         }
+    //
+    //         reader.readAsDataURL(file);
+    //     }
+    // }
+    //
+    // $("#rm-btn-1").click(function (e) {
+    //     e.preventDefault();
+    //     $("#thumbnail-1").val("");
+    //     $("#previewImg-1").attr("src", "");
+    // });
+    // $("#rm-btn-2").click(function (e) {
+    //     e.preventDefault();
+    //     $("#thumbnail-2").val("");
+    //     $("#previewImg-2").attr("src", "");
+    // });
     //-----------------------------------------------------
     let preloaded = [];
     <c:set value="1" var="i"></c:set>
