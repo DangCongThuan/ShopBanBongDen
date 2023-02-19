@@ -82,7 +82,7 @@
                 <div class="col-lg-3">
                     <div class="brand-logo">
                         <a href="index.html">
-                            <img src="" alt="brand logo" />
+                            <img src=" <c:url value="/assets/commons/imgs/logo.png"/>" alt="brand logo" />
                         </a>
                     </div>
                 </div>

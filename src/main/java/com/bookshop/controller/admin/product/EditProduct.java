@@ -19,8 +19,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/admin/product/add"})
-public class AddProduct extends HttpServlet {
+@WebServlet(value = "/admin/product/edit")
+public class EditProduct extends HttpServlet {
     private IProductService productService = ProductServiceImpl.getInstance();
     private ICategoryService categoryService = CategoryServiceImpl.getInstance();
     private ServletFileUpload uploader = null;
@@ -37,6 +37,11 @@ public class AddProduct extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ProductModel productModel = FormUtils.toModel(ProductModel.class, request);
+        if (productModel.getId() != null) {
+            productModel = productService.findToEdit(productModel.getId());
+            request.setAttribute("productModel", productModel);
+        }
         request.setAttribute("cateList", categoryService.findAll());
         request.getRequestDispatcher("/views/admin/product/edit-product.jsp").forward(request, response);
     }
@@ -51,10 +56,10 @@ public class AddProduct extends HttpServlet {
         } catch (FileUploadException e) {
             message = "Thêm hình ảnh không thành công";
         } catch (Exception e) {
-            message = "Thêm sản phẩm không thành công";
+            message = "Chỉnh sửa sản phẩm không thành công";
         }
         if (StringUtils.isBlank(message)) {
-            message = productService.add(newProductModel);
+            message = productService.update(newProductModel);
         }
         response.setContentType("text/plain");
         response.getWriter().write(message);

@@ -68,10 +68,9 @@ public class CategoryDaoImpl extends AbstractDao<CategoryModel> implements ICate
     @Override
     public void update(CategoryModel newCategory) {
         StringBuilder sql = new StringBuilder("Update category Set category_name = ?, description = ?,");
-        sql.append(" status = ?, created_date = ?, created_by = ?, modified_date = ?, modified_by = ? Where category_id = ?");
+        sql.append(" status = ?, modified_date = ?, modified_by = ? Where category_id = ?");
         update(sql.toString(), newCategory.getName(), newCategory.getDescription(), newCategory.getStatus(),
-                newCategory.getCreatedDate(), newCategory.getCreatedBy(), newCategory.getCreatedDate(),
-                newCategory.getModifiedBy(), newCategory.getId());
+                newCategory.getModifiedDate(), newCategory.getModifiedBy(), newCategory.getId());
     }
 
     @Override

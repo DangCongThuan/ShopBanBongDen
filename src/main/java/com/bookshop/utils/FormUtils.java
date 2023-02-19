@@ -29,6 +29,9 @@ public class FormUtils {
         ArrayList<String> list = new ArrayList<>();
         for (FileItem item : items) {
             if (item.isFormField()) {
+                if (item.getFieldName().equals("preloaded[]")) {
+                    continue;
+                }
                 map.put(item.getFieldName(), item.getString("UTF-8"));
             } else {
                 if (StringUtils.isBlank(item.getName())) {

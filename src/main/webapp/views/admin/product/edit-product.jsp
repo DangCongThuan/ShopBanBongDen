@@ -83,21 +83,15 @@
                                 </div>
                                 <span id="result"></span>
                                 <div class="card-body">
-                                    <c:if test="${productModel.id != null}">
-                                        <c:url value="/admin/product/edit" var="urlFromProduct"/>
-                                    </c:if>
-                                    <c:if test="${productModel.id == null}">
-                                        <c:url value="/admin/product/add" var="urlFromProduct"/>
-                                    </c:if>
                                     <form id="productForm" enctype="multipart/form-data" accept-charset="UTF-8"
                                           method="post">
                                         <div class="row">
                                             <div class="col-12 col-md-4 col-lg-4">
                                                 <div class="form-group">
-                                                    <label>Hình ảnh mô tả 1</label>
+                                                    <label>Ảnh bìa</label>
                                                     <div id="drop-zone">
-                                                        <img id="thumbnail-img" src="" alt="">
-                                                        <p id="label-thumbnail">Thả tệp hoặc nhấp để tải lên</p>
+                                                        <img style="${productModel.thumbnail != null ? "display: block" : ""}" id="thumbnail-img" src="<c:url value="/get/image?fileName=${productModel.thumbnail}"/>" alt="">
+                                                        <p style="${productModel.thumbnail != null ? "display: none" : ""}" id="label-thumbnail">Thả tệp hoặc nhấp để tải lên</p>
                                                         <input type="file" id="thumbnail" name="thumbnail" required hidden>
                                                     </div>
                                                 </div>
@@ -123,7 +117,7 @@
                                                 <div class="form-group">
                                                     <label>Giá cũ</label>
                                                     <div>
-                                                        <input id="old-price" name="old-price" type="number"
+                                                        <input id="oldPrice" name="oldPrice" type="number"
                                                                value="${productModel.oldPrice}"
                                                                class="form-control">
                                                     </div>
@@ -228,6 +222,7 @@
                                                 </button>
                                             </div>
                                         </div>
+                                        <input type="hidden" value="${productModel.id}" id="id" name="id"/>
                                     </form>
                                 </div>
                             </div>
@@ -295,31 +290,6 @@
     });
 </script>
 <script>
-    // function previewFile(input, id) {
-    //     var file = $(input).get(0).files[0];
-    //
-    //     if (file) {
-    //         var reader = new FileReader();
-    //
-    //         reader.onload = function () {
-    //             $("#previewImg-" + id).attr("src", reader.result);
-    //         }
-    //
-    //         reader.readAsDataURL(file);
-    //     }
-    // }
-    //
-    // $("#rm-btn-1").click(function (e) {
-    //     e.preventDefault();
-    //     $("#thumbnail-1").val("");
-    //     $("#previewImg-1").attr("src", "");
-    // });
-    // $("#rm-btn-2").click(function (e) {
-    //     e.preventDefault();
-    //     $("#thumbnail-2").val("");
-    //     $("#previewImg-2").attr("src", "");
-    // });
-    //-----------------------------------------------------
     let preloaded = [];
     <c:set value="1" var="i"></c:set>
     <c:forEach begin="1" end="${productModel.inforImages.size()}" var="i">
@@ -335,10 +305,11 @@
         });
     });
 </script>
+<c:url var="urlTable" value="/admin/product/table"/>
 <c:url var="urlAdd" value="/admin/product/add"/>
 <c:url var="urlEdit" value="/admin/product/edit"/>
 <script>
-    var idProduct = "${productModel.id}";
+    var idProduct = $('#id').val();
     // $(document).ready(function () {
     $("#btnSubmit").click(function (event) {
         event.preventDefault();
@@ -390,20 +361,23 @@
 
     function updateProduct(data) {
         $.ajax({
-            type: "PUT",
+            type: "POST",
             enctype: 'multipart/form-data',
             url: "${urlEdit}",
             data: data,
             processData: false,
             contentType: false,
             success: function (data) {
-                if (data == 'add-product-success') {
+                if (data == 'thành công') {
                     iziToast.success({
                         title: 'Thông báo!',
-                        message: data,
+                        message: 'Cập nhật sản phẩm thành công',
                         position: 'topRight'
                     });
                     $("#productForm")[0].reset();
+                    window.setTimeout(function(){
+                        window.open('${urlTable}');
+                    }, 3000);
                     // $("#result").text(data);
                 } else {
                     iziToast.error({
