@@ -3,6 +3,7 @@ package com.bookshop.controller.admin.category;
 import com.bookshop.model.CategoryModel;
 import com.bookshop.services.ICategoryService;
 import com.bookshop.services.impl.CategoryServiceImpl;
+import com.bookshop.utils.FormUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,9 +16,7 @@ public class EditCategory extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CategoryModel categoryModel = new CategoryModel();
-        categoryModel.setId(Long.parseLong(request.getParameter("id")));
-        categoryModel.setMessage(request.getParameter("message"));
+        CategoryModel categoryModel = FormUtils.toModel(CategoryModel.class, request);
         if (categoryModel.getId() != null) {
             categoryModel = categoryService.findById(categoryModel.getId());
         }
@@ -27,21 +26,11 @@ public class EditCategory extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
-        CategoryModel categoryModel = new CategoryModel();
-        categoryModel.setName(request.getParameter("name"));
-        categoryModel.setDescription(request.getParameter("description"));
-        categoryModel.setStatus(Integer.parseInt(request.getParameter("status")));
-        categoryModel.setId(Long.parseLong(request.getParameter("id")));
-        if (categoryModel.getId() == null) {
-
-        } else {
-            categoryModel.setModifiedBy("dang cong thuan");
-            categoryModel = categoryService.update(categoryModel);
-        }
-        request.setAttribute("cateModel", categoryModel);
-        request.getRequestDispatcher("/views/admin/category/edit-category.jsp").forward(request, response);
-//        response.sendRedirect(request.getContextPath() + "/admin-category-table?message=" + categoryModel.getMessage());
+      CategoryModel categoryModel = FormUtils.toModel(CategoryModel.class, request);
+        categoryModel.setModifiedBy("Dang Cong Thuan");
+        String result = categoryService.update(categoryModel);
+        response.setContentType("text/plain");
+        response.getWriter().write(result);
     }
 
 

@@ -355,12 +355,13 @@ $(function () {
   if (jQuery().summernote) {
     $(".summernote").summernote({
       dialogsInBody: true,
-      // minHeight: 250
+      minHeight: 250,
       lang: 'vi-VN'
     });
     $(".summernote-simple").summernote({
       dialogsInBody: true,
-      // minHeight: 150,
+      minHeight: 150,
+      lang: 'vi-VN',
       toolbar: [
         ["style", ["bold", "italic", "underline", "clear"]],
         ["font", ["strikethrough"]],

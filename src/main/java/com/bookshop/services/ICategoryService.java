@@ -10,11 +10,11 @@ public interface ICategoryService {
 
     List<CategoryModel> findAll();
 
-    CategoryModel add(CategoryModel newCategory);
+    String add(CategoryModel newCategory);
 
     CategoryModel findById(Long id);
 
-    CategoryModel update(CategoryModel newCategory);
+    String update(CategoryModel newCategory);
 
     void delete(Long[] ids);
     void delete(Long id);

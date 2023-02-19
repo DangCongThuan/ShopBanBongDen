@@ -6,16 +6,27 @@ import com.bookshop.paging.Pageble;
 import java.util.List;
 
 public interface IProductDao {
+
+    //    ----------------------------------------ADMIN-----------------------------------------------
+//    find
     List<ProductModel> findAll(Pageble pageble);
-    Long add(ProductModel newProduct);
-    void update(ProductModel productUpdated);
-    void softDelete(Long id);
-    void hardDelete(Long id);
     ProductModel findById(Long id);
     ProductModel findByName(String name);
-    boolean checkExits(String name);
+    ProductModel findToEdit(Long id);
 
-    //    Bảng product_detail
+    List<ProductModel> findToTable();
+
+    //    add
+    Long add(ProductModel newProduct);
     Long addProductDetail(ProductModel newProduct);
+
+//    update
+    void update(ProductModel productUpdated);
     void updateProductDetail(ProductModel productUpdated);
+
+//    delete
+    void softDelete(Long id);
+    void hardDelete(Long id);
+    boolean checkExits(String name);
+    boolean checkExits(Long id);
 }

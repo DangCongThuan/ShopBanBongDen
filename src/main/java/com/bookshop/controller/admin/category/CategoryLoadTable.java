@@ -13,7 +13,6 @@ public class CategoryLoadTable extends HttpServlet {
     private ICategoryService categoryService = CategoryServiceImpl.getInstance();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("message", request.getParameter("message"));
         request.setAttribute("cateList", categoryService.findAll());
         request.getRequestDispatcher("/views/admin/category/category-table.jsp").forward(request, response);
 

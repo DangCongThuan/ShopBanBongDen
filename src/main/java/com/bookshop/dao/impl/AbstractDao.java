@@ -1,8 +1,7 @@
 package com.bookshop.dao.impl;
 
-import com.bookshop.db.GPDataSource;
+import com.bookshop.db.HikariGPDataSource;
 import com.bookshop.mapper.IRowMapper;
-import org.apache.commons.lang3.StringUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -42,7 +41,7 @@ public class AbstractDao<T> {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            connection = GPDataSource.getConnection();
+            connection = HikariGPDataSource.getConnection();
             preparedStatement = connection.prepareStatement(sql);
             setParameter(preparedStatement, parameters);
             resultSet = preparedStatement.executeQuery();
@@ -54,9 +53,17 @@ public class AbstractDao<T> {
             throw new RuntimeException(e);
         } finally {
             try {
-                GPDataSource.releaseConnection(resultSet, preparedStatement, connection);
-            } catch (SQLException e1) {
-                e1.printStackTrace();
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e2) {
+                e2.printStackTrace();
             }
         }
     }
@@ -73,7 +80,7 @@ public class AbstractDao<T> {
         ResultSet resultSet = null;
         Long result = null;
         try {
-            connection = GPDataSource.getConnection();
+            connection = HikariGPDataSource.getConnection();
             connection.setAutoCommit(false);
 //            connection.setAutoCommit(true);
             preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -96,10 +103,17 @@ public class AbstractDao<T> {
                     e1.printStackTrace();
                 }
             }
-
         } finally {
             try {
-                GPDataSource.releaseConnection(resultSet, preparedStatement, connection);
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException e2) {
                 e2.printStackTrace();
             }
@@ -111,7 +125,7 @@ public class AbstractDao<T> {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = GPDataSource.getConnection();
+            connection = HikariGPDataSource.getConnection();
             connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement(sql);
             setParameter(preparedStatement, parameters);
@@ -128,12 +142,16 @@ public class AbstractDao<T> {
             }
         } finally {
             try {
-                GPDataSource.releaseConnection(preparedStatement, connection);
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException e2) {
                 e2.printStackTrace();
             }
         }
-
     }
     public int count(String sql, Object... parameters) {
         Connection connection = null;
@@ -141,7 +159,7 @@ public class AbstractDao<T> {
         ResultSet resultSet = null;
         int result = 0;
         try {
-            connection = GPDataSource.getConnection();
+            connection = HikariGPDataSource.getConnection();
             connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement(sql);
 
@@ -161,20 +179,21 @@ public class AbstractDao<T> {
                     e1.printStackTrace();
                 }
             }
-
         } finally {
             try {
-                GPDataSource.releaseConnection(resultSet, preparedStatement, connection);
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException e2) {
                 e2.printStackTrace();
             }
         }
         return result;
-    }
-
-    public static void main(String[] args) {
-        String a = "";
-        Object result = a;
-        System.out.println(result);
     }
 }

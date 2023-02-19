@@ -9,7 +9,7 @@ public interface ImgsProductDao {
     //    Bảng img
     boolean checkExitImg(String name);
 
-    Long addImg(String imgName, ProductModel productModel);
+    Long addImg(String imgName, String createdBy);
 
     void softDeleteImg(Long id);
 
@@ -28,9 +28,8 @@ public interface ImgsProductDao {
     //    Bảng thumbnail_product
     Long addThumbnail(Long imgId, Long productId);
 
-    void softDeleteThumbnail(Long productId);
 
-    void harDeleteThumbnail(Long productId);
+    void deleteThumbnail(Long productId);
 
     ImgModel findThumbnail(Long productId);
 
@@ -38,9 +37,7 @@ public interface ImgsProductDao {
 
     Long addDetailImg(Long imgId, Long productId);
 
-    void softDeleteDetailImg(Long productId);
-
-    void harDeleteDetailImg(Long productId);
+    void deleteDetailImg(Long productId);
 
     List<ImgModel> findDetailImg(Long productId);
 

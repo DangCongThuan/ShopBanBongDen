@@ -36,18 +36,15 @@ public class CategoryServiceImpl implements ICategoryService {
         return categoryDao.findAll();
     }
     @Override
-    public CategoryModel add(CategoryModel newCategory) {
+    public String add(CategoryModel newCategory) {
         newCategory.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-        if (StringUtils.isAnyBlank(newCategory.getName(), newCategory.getDescription())) {
-            newCategory.setMessage("null_value");
-        } else if (categoryDao.checkExits(newCategory.getName())) {
-            newCategory.setMessage(" Đã tồn tại danh mục");
+        if (categoryDao.checkExits(newCategory.getName())) {
+            return " Đã tồn tại danh mục";
         } else {
             Long categoryId = categoryDao.add(newCategory);
             newCategory = categoryDao.findById(categoryId);
-            newCategory.setMessage("Thêm thành công");
+            return "thành công";
         }
-        return newCategory;
     }
 
     @Override
@@ -56,20 +53,10 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public CategoryModel update(CategoryModel newCategory) {
-        CategoryModel oldCategory = categoryDao.findById(newCategory.getId());
-        newCategory.setCreatedBy(oldCategory.getCreatedBy());
-        newCategory.setCreatedDate(oldCategory.getCreatedDate());
+    public String update(CategoryModel newCategory) {
         newCategory.setModifiedDate(new Timestamp(System.currentTimeMillis()));
         categoryDao.update(newCategory);
-        newCategory = categoryDao.findById(newCategory.getId());
-        if (newCategory == null) {
-            newCategory.setMessage("Lỗi không thể cập nhật");
-        }
-        else {
-            newCategory.setMessage("Cập nhật thành công");
-        }
-        return newCategory;
+        return "thành công";
     }
 
     @Override

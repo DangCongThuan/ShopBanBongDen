@@ -30,9 +30,10 @@ public class ImgsProductDaoImpl extends AbstractDao<ImgModel> implements ImgsPro
     }
 
     @Override
-    public Long addImg(String imgName, ProductModel productModel) {
+    public Long addImg(String imgName, String createdBy) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String sql = "Insert Into img(img_name, status, created_by, created_date) Values( ?, ?, ?, ?)";
-        return insert(sql, imgName, 1, productModel.getCreatedBy(), productModel.getCreatedDate());
+        return insert(sql, imgName, 1, createdBy, timestamp);
     }
 
     @Override
@@ -86,21 +87,14 @@ public class ImgsProductDaoImpl extends AbstractDao<ImgModel> implements ImgsPro
     }
 
     @Override
-    public void softDeleteThumbnail(Long productId) {
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-        String sql = "Update thumbnail_product Set deleted_at = ? where product_id = ?";
-        update(sql, time, productId);
-    }
-
-    @Override
-    public void harDeleteThumbnail(Long productId) {
+    public void deleteThumbnail(Long productId) {
         String sql = "DELETE FROM thumbnail_product WHERE product_id = ?";
         update(sql, productId);
     }
 
     @Override
     public ImgModel findThumbnail(Long productId) {
-        String sql = "Select * from img AS i inner join thumbnail_product AS t  where status = 1 and product_id = ? and i.deleted_at is null and t.deleted_at is null";
+        String sql = "Select * from img AS i inner join thumbnail_product AS t on i.img_id = t.img_id where status = 1 and product_id = ? and i.deleted_at is null and t.deleted_at is null";
         List<ImgModel> img = query(sql, new ImgMapper(), productId);
         return img.isEmpty() ? null : img.get(0);
     }
@@ -114,14 +108,7 @@ public class ImgsProductDaoImpl extends AbstractDao<ImgModel> implements ImgsPro
     }
 
     @Override
-    public void softDeleteDetailImg(Long productId) {
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-        String sql = "Update img_detail_product Set deleted_at = ? where product_id = ?";
-        update(sql, time, productId);
-    }
-
-    @Override
-    public void harDeleteDetailImg(Long productId) {
+    public void deleteDetailImg(Long productId) {
         String sql = "DELETE FROM img_detail_product WHERE product_id = ?";
         update(sql, productId);
     }

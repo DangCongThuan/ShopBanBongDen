@@ -8,7 +8,7 @@ public class ProductModel extends AbstractModel{
     private String name;
     private String thumbnail;
     private String description;
-    private String oldPrice;
+    private Long oldPrice;
     private Long price;
     private Long sellPrice;
     private Long categoryId;
@@ -72,11 +72,11 @@ public class ProductModel extends AbstractModel{
         this.description = description;
     }
 
-    public String getOldPrice() {
+    public Long getOldPrice() {
         return oldPrice;
     }
 
-    public void setOldPrice(String oldPrice) {
+    public void setOldPrice(Long oldPrice) {
         this.oldPrice = oldPrice;
     }
 
@@ -176,5 +176,29 @@ public class ProductModel extends AbstractModel{
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                ", description='" + description + '\'' +
+                ", oldPrice=" + oldPrice +
+                ", price=" + price +
+                ", sellPrice=" + sellPrice +
+                ", categoryId=" + categoryId +
+                ", categoryModel=" + categoryModel +
+                ", describes='" + describes + '\'' +
+                ", size='" + size + '\'' +
+                ", wattage='" + wattage + '\'' +
+                ", lumen='" + lumen + '\'' +
+                ", voltage='" + voltage + '\'' +
+                ", color='" + color + '\'' +
+                ", inforImages=" + inforImages +
+                ", stars=" + stars +
+                ", reviewCount=" + reviewCount +
+                '}';
     }
 }
